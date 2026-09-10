@@ -2611,6 +2611,418 @@ renderFiltros();
   </script>
 </section>
 
+    <section data-tela="meus-alugueis" class="hidden">
+      <div class="fade-in max-w-[1200px] mx-auto px-6 py-8">
+        <div class="flex items-start justify-between mb-8">
+          <div>
+            <h1 class="font-display text-3xl font-bold text-gray-900">Meus Aluguéis</h1>
+            <p class="text-gray-500 mt-1 font-body">Gerencie seus contratos, pagamentos e solicitações de manutenção</p>
+          </div>
+          <button onclick="mostrarTela('resultados-da-busca')" class="btn bg-marca-600 hover:bg-marca-700 text-white px-5 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 active:scale-95 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            Buscar imóvel
+          </button>
+        </div>
+
+        <div class="grid grid-cols-4 gap-4 mb-8">
+          <div class="card bg-white rounded-xl p-5 border border-gray-100">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">Aluguéis ativos</span>
+              <div class="w-8 h-8 bg-marca-50 rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-marca-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m7-7l7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4"/></svg></div>
+            </div>
+            <p class="font-display text-2xl font-bold text-gray-900" id="stat-ativos">6</p>
+            <p class="text-xs text-gray-400 mt-1">Contratos vigentes</p>
+          </div>
+          <div class="card bg-white rounded-xl p-5 border border-gray-100">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">Total mensal</span>
+              <div class="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+            </div>
+            <p class="font-display text-2xl font-bold text-gray-900" id="stat-total">R$ 8.850</p>
+            <p class="text-xs text-gray-400 mt-1">Em aluguéis/mês</p>
+          </div>
+          <div class="card bg-white rounded-xl p-5 border border-gray-100">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">Vence em 7 dias</span>
+              <div class="w-8 h-8 bg-orange-50 rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-orange-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+            </div>
+            <p class="font-display text-2xl font-bold text-orange-600" id="stat-vencendo">1</p>
+            <p class="text-xs text-gray-400 mt-1">Aluguéis a vencer</p>
+          </div>
+          <div class="card bg-white rounded-xl p-5 border border-gray-100">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-medium text-gray-400 uppercase tracking-wider">Pagamentos pendentes</span>
+              <div class="w-8 h-8 bg-red-50 rounded-lg flex items-center justify-center"><svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg></div>
+            </div>
+            <p class="font-display text-2xl font-bold text-red-600" id="stat-pendentes">1</p>
+            <p class="text-xs text-gray-400 mt-1">Em atraso</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-6 mb-6">
+          <div class="flex-1">
+            <div class="relative">
+              <svg class="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              <input type="text" id="meus_alugueis_busca" oninput="meus_alugueis_filtrar()" placeholder="Buscar por endereço, bairro ou cidade..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent transition-all font-body">
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <select id="meus_alugueis_filtro_status" onchange="meus_alugueis_filtrar()" class="px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 font-body bg-white">
+              <option value="todos">Todos os status</option>
+              <option value="em-dia">Em dia</option>
+              <option value="vence-em-breve">Vence em breve</option>
+              <option value="atrasado">Atrasado</option>
+            </select>
+            <select id="meus_alugueis_filtro_ordenar" onchange="meus_alugueis_filtrar()" class="px-4 py-2.5 rounded-xl border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 font-body bg-white">
+              <option value="valor-asc">Menor valor</option>
+              <option value="valor-desc">Maior valor</option>
+              <option value="vencimento">Vencimento</option>
+              <option value="nome">Nome / Endereço</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex border-b border-gray-200 mb-6">
+          <button onclick="meus_alugueis_aba('ativos')" id="tab-ativos" class="meus_alugueis_tab px-5 py-3 text-sm font-medium border-b-2 border-marca-600 text-marca-700 transition-all duration-200">Ativos <span class="ml-1.5 text-xs bg-marca-100 text-marca-700 px-2 py-0.5 rounded-full" id="badge-ativos">6</span></button>
+          <button onclick="meus_alugueis_aba('historico')" id="tab-historico" class="meus_alugueis_tab px-5 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 transition-all duration-200">Histórico <span class="ml-1.5 text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full" id="badge-historico">6</span></button>
+        </div>
+
+        <div id="painel-ativos">
+          <div id="lista-ativos" class="grid grid-cols-1 lg:grid-cols-2 gap-5"></div>
+          <div id="vazio-ativos" class="hidden text-center py-16">
+            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75"/></svg></div>
+            <p class="font-display text-lg font-semibold text-gray-700">Nenhum aluguel encontrado</p>
+            <p class="text-sm text-gray-400 mt-1">Tente ajustar os filtros ou faça uma nova busca</p>
+          </div>
+        </div>
+
+        <div id="painel-historico" class="hidden">
+          <div id="lista-historico" class="space-y-3"></div>
+          <div id="vazio-historico" class="hidden text-center py-16">
+            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+            <p class="font-display text-lg font-semibold text-gray-700">Nenhum histórico encontrado</p>
+            <p class="text-sm text-gray-400 mt-1">Seus aluguéis passados aparecerão aqui</p>
+          </div>
+        </div>
+
+        <div class="mt-10 pt-8 border-t border-gray-100">
+          <h3 class="font-display text-lg font-semibold text-gray-800 mb-4">Financeiro</h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <button onclick="meus_alugueis_segundaVia()" class="card bg-white hover:bg-gray-50 rounded-xl p-5 border border-gray-100 text-left transition-all duration-200 active:scale-[0.98] group">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="w-10 h-10 bg-marca-50 rounded-lg flex items-center justify-center group-hover:bg-marca-100 transition-colors"><svg class="w-5 h-5 text-marca-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-1.5H8.25m2.369-6.927l-1.275 1.275M15 12.75l-1.275 1.275M19.5 14.25l-1.275 1.275"/></svg></div>
+                <span class="font-medium text-gray-800 text-sm">Segunda via de boleto</span>
+              </div>
+              <p class="text-xs text-gray-400">Emita boletos pendentes e anteriores</p>
+            </button>
+            <button onclick="meus_alugueis_historicoPagamentos()" class="card bg-white hover:bg-gray-50 rounded-xl p-5 border border-gray-100 text-left transition-all duration-200 active:scale-[0.98] group">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="w-10 h-10 bg-amber-50 rounded-lg flex items-center justify-center group-hover:bg-amber-100 transition-colors"><svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v1.125M3 13.125C3 14.504 3.504 15 4.125 15h2.25c.621 0 1.125.504 1.125 1.125v1.125M3 13.125v6.375c0 .621.504 1.125 1.125 1.125h15.75c.621 0 1.125-.504 1.125-1.125V13.125M9 9.375h6.375M9 9.375c0-.621-.504-1.125-1.125-1.125H7.125C6.504 8.25 6 8.754 6 9.375M9 9.375V7.5m0 1.875c0 .621.504 1.125 1.125 1.125h.008c.621 0 1.125-.504 1.125-1.125M9 9.375V7.5m0 1.875c0 .621.504 1.125 1.125 1.125h.008c.621 0 1.125-.504 1.125-1.125"/></svg></div>
+                <span class="font-medium text-gray-800 text-sm">Histórico de pagamentos</span>
+              </div>
+              <p class="text-xs text-gray-400">Extrato completo por período</p>
+            </button>
+            <button onclick="meus_alugueis_negociar()" class="card bg-white hover:bg-gray-50 rounded-xl p-5 border border-gray-100 text-left transition-all duration-200 active:scale-[0.98] group">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="w-10 h-10 bg-emerald-50 rounded-lg flex items-center justify-center group-hover:bg-emerald-100 transition-colors"><svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.012z"/></svg></div>
+                <span class="font-medium text-gray-800 text-sm">Negociar reajuste</span>
+              </div>
+              <p class="text-xs text-gray-400">Proponha um novo valor de aluguel</p>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <script>
+      function meus_alugueis_aba(aba) {
+        document.querySelectorAll('.meus_alugueis_tab').forEach(function(t) {
+          t.classList.remove('border-marca-600','text-marca-700');
+          t.classList.add('border-transparent','text-gray-500');
+        });
+        document.getElementById('tab-' + aba).classList.add('border-marca-600','text-marca-700');
+        document.getElementById('tab-' + aba).classList.remove('border-transparent','text-gray-500');
+        document.getElementById('painel-ativos').classList.toggle('hidden', aba !== 'ativos');
+        document.getElementById('painel-historico').classList.toggle('hidden', aba !== 'historico');
+      }
+
+      var meus_alugueis_ativos = [
+        { id: 1, inicial: 'CM', nomeCor: 'bg-rose-500', endereco: 'R. Boa Vista, 247 - Centro, São Paulo - SP', cep: '01014-000', valor: 1200, inicio: '2025-03-15', fim: '2026-03-14', vencimento: '2025-08-15', status: 'em-dia', quartos: 1, area: 22, mobiliado: true, proprietario: 'Carlos M. Silva', tel: '(11) 98765-4321' },
+        { id: 2, inicial: 'VM', nomeCor: 'bg-violet-500', endereco: 'R. Aspicuelta, 89 - Vila Madalena, São Paulo - SP', cep: '05433-010', valor: 2100, inicio: '2025-01-20', fim: '2025-09-19', vencimento: '2025-08-20', status: 'atrasado', quartos: 1, area: 30, mobiliado: true, proprietario: 'Maria V. Lopes', tel: '(11) 97654-3210' },
+        { id: 3, inicial: 'BV', nomeCor: 'bg-teal-500', endereco: 'Av. Caxangá, 1200 - Boa Vista, Recife - PE', cep: '50050-000', valor: 950, inicio: '2025-06-01', fim: '2026-05-31', vencimento: '2025-08-01', status: 'em-dia', quartos: 1, area: 18, mobiliado: false, proprietario: 'João B. Freitas', tel: '(81) 98765-1234' },
+        { id: 4, inicial: 'ZN', nomeCor: 'bg-sky-500', endereco: 'R. Voluntários da Pátria, 456 - Zona Norte, São Paulo - SP', cep: '02031-000', valor: 1450, inicio: '2025-04-10', fim: '2026-04-09', vencimento: '2025-08-10', status: 'vence-em-breve', quartos: 1, area: 25, mobiliado: true, proprietario: 'Ana Z. Costa', tel: '(11) 99876-5432' },
+        { id: 5, inicial: 'JP', nomeCor: 'bg-amber-500', endereco: 'Al. Jaú, 892 - Jardim Paulista, São Paulo - SP', cep: '01420-001', valor: 1800, inicio: '2025-07-01', fim: '2026-06-30', vencimento: '2025-08-01', status: 'em-dia', quartos: 1, area: 28, mobiliado: true, proprietario: 'Roberto J. Pinto', tel: '(11) 96543-2109' },
+        { id: 6, inicial: 'TP', nomeCor: 'bg-lime-600', endereco: 'R. Tatuapé, 178 - Tatuapé, São Paulo - SP', cep: '03084-000', valor: 1350, inicio: '2025-05-22', fim: '2026-05-21', vencimento: '2025-08-22', status: 'em-dia', quartos: 1, area: 20, mobiliado: false, proprietario: 'Fernanda T. Rocha', tel: '(11) 95432-1098' }
+      ];
+
+      var meus_alugueis_historico = [
+        { id: 101, inicial: 'CS', nomeCor: 'bg-fuchsia-500', endereco: 'R. da Consolação, 320 - Consolação, São Paulo - SP', inicio: '2024-01-15', fim: '2024-12-14', valor: 1100, nota: 4.5 },
+        { id: 102, inicial: 'PI', nomeCor: 'bg-cyan-600', endereco: 'R. dos Pinheiros, 55 - Pinheiros, São Paulo - SP', inicio: '2023-06-01', fim: '2024-05-31', valor: 1600, nota: 4.0 },
+        { id: 103, inicial: 'ST', nomeCor: 'bg-indigo-500', endereco: 'Av. Santana, 789 - Santana, São Paulo - SP', inicio: '2023-01-10', fim: '2023-10-09', valor: 980, nota: 5.0 },
+        { id: 104, inicial: 'LP', nomeCor: 'bg-pink-500', endereco: 'R. Lapa, 210 - Lapa, São Paulo - SP', inicio: '2022-03-20', fim: '2023-02-19', valor: 1300, nota: 3.5 },
+        { id: 105, inicial: 'MO', nomeCor: 'bg-orange-500', endereco: 'R. Olegário Maciel, 600 - Moema, São Paulo - SP', inicio: '2021-09-05', fim: '2022-08-04', valor: 1750, nota: 4.5 },
+        { id: 106, inicial: 'PD', nomeCor: 'bg-emerald-500', endereco: 'R. Perdizes, 100 - Perdizes, São Paulo - SP', inicio: '2021-01-01', fim: '2021-12-31', valor: 1050, nota: 4.0 }
+      ];
+
+      function meus_alugueis_statusBadge(status) {
+        if (status === 'em-dia') return '<span class="badge bg-emerald-100 text-emerald-700 text-xs px-2.5 py-1 rounded-full font-medium flex items-center gap-1 w-fit"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L7 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>Em dia</span>';
+        if (status === 'atrasado') return '<span class="badge bg-red-100 text-red-700 text-xs px-2.5 py-1 rounded-full font-medium flex items-center gap-1 w-fit"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"/></svg>Atrasado</span>';
+        return '<span class="badge bg-amber-100 text-amber-700 text-xs px-2.5 py-1 rounded-full font-medium flex items-center gap-1 w-fit"><svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM10 13a1 1 0 11-2 0 1 1 0 012 0z"/></svg>Vence em breve</span>';
+      }
+
+      function meus_alugueis_corStatus(status) {
+        if (status === 'em-dia') return 'border-l-emerald-500';
+        if (status === 'atrasado') return 'border-l-red-500';
+        return 'border-l-amber-500';
+      }
+
+      function meus_alugueis_renderCard(a) {
+        return '<div class="card bg-white rounded-xl border border-gray-100 border-l-4 ' + meus_alugueis_corStatus(a.status) + ' overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group" onclick="meus_alugueis_detalhe(' + a.id + ')" data-id="' + a.id + '">' +
+          '<div class="flex flex-col sm:flex-row">' +
+            '<div class="w-full sm:w-40 h-32 sm:h-auto flex-shrink-0 bg-gradient-to-br from-gray-100 to-gray-50 flex items-center justify-center relative overflow-hidden">' +
+              '<div class="w-20 h-20 rounded-full ' + a.nomeCor + ' flex items-center justify-center text-white font-display text-xl font-bold shadow-lg">' + a.inicial + '</div>' +
+              '<div class="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent"></div>' +
+            '</div>' +
+            '<div class="flex-1 p-5">' +
+              '<div class="flex items-start justify-between mb-2">' +
+                '<div class="flex-1 min-w-0">' +
+                  '<h3 class="font-display font-semibold text-gray-900 text-base truncate">Kitnet - ' + a.endereco.split(',')[1].trim() + '</h3>' +
+                  '<p class="text-xs text-gray-400 mt-0.5 truncate">' + a.endereco + '</p>' +
+                '</div>' +
+                meus_alugueis_statusBadge(a.status) +
+              '</div>' +
+              '<div class="flex items-end gap-4 mt-4">' +
+                '<div><span class="text-xs text-gray-400 block">Aluguel/mês</span><span class="font-display text-lg font-bold text-marca-700">' + brl(a.valor) + '</span></div>' +
+                '<div class="text-xs text-gray-400"><span class="block">Início</span><span class="text-gray-600 font-medium">' + dataBR(a.inicio) + '</span></div>' +
+                '<div class="text-xs text-gray-400"><span class="block">Vencimento</span><span class="text-gray-600 font-medium">' + dataBR(a.fim) + '</span></div>' +
+              '</div>' +
+              '<div class="flex flex-wrap gap-2 mt-4 pt-3 border-t border-gray-50">' +
+                '<button onclick="event.stopPropagation(); meus_alugueis_contrato(' + a.id + ')" class="btn bg-gray-100 hover:bg-gray-200 text-gray-700 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 active:scale-95">Ver contrato</button>' +
+                '<button onclick="event.stopPropagation(); meus_alugueis_manutencao(' + a.id + ')" class="btn bg-marca-50 hover:bg-marca-100 text-marca-700 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 active:scale-95">Solicitar manutenção</button>' +
+                '<button onclick="event.stopPropagation(); meus_alugueis_reabrirModal(' + a.id + ')" class="btn bg-amber-50 hover:bg-amber-100 text-amber-700 px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 active:scale-95">Renovar contrato</button>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }
+
+      function meus_alugueis_renderHistorico(h) {
+        var estrelas = '';
+        for (var i = 1; i <= 5; i++) {
+          if (i <= Math.floor(h.nota)) estrelas += '<svg class="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
+          else if (i - h.nota < 1) estrelas += '<svg class="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
+          else estrelas += '<svg class="w-3.5 h-3.5 text-gray-200" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>';
+        }
+        return '<div class="card bg-white rounded-xl p-5 border border-gray-100 hover:shadow-md transition-all duration-200">' +
+          '<div class="flex items-center gap-4">' +
+            '<div class="w-12 h-12 rounded-full ' + h.nomeCor + ' flex items-center justify-center text-white font-display text-sm font-bold flex-shrink-0">' + h.inicial + '</div>' +
+            '<div class="flex-1 min-w-0">' +
+              '<h4 class="font-display font-semibold text-gray-800 text-sm truncate">Kitnet - ' + h.endereco.split(',')[1].trim() + '</h4>' +
+              '<p class="text-xs text-gray-400 mt-0.5">' + h.endereco + '</p>' +
+              '<div class="flex items-center gap-3 mt-2">' +
+                '<span class="text-xs text-gray-500">' + dataBR(h.inicio) + ' → ' + dataBR(h.fim) + '</span>' +
+                '<span class="text-xs font-medium text-gray-700">' + brl(h.valor) + '/mês</span>' +
+              '</div>' +
+            '</div>' +
+            '<div class="flex flex-col items-end gap-2">' +
+              '<div class="flex items-center gap-0.5">' + estrelas + '</div>' +
+              '<button onclick="meus_alugueis_reavaliar(' + h.id + ')" class="text-xs text-marca-600 hover:text-marca-700 font-medium transition-colors">Reavaliar</button>' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }
+
+      function meus_alugueis_filtrar() {
+        var busca = document.getElementById('meus_alugueis_busca').value.toLowerCase();
+        var filtro = document.getElementById('meus_alugueis_filtro_status').value;
+        var lista = document.getElementById('lista-ativos');
+        var vazio = document.getElementById('vazio-ativos');
+        var visiveis = [];
+        meus_alugueis_ativos.forEach(function(a) {
+          var matchBusca = !busca || a.endereco.toLowerCase().includes(busca) || (a.endereco.split(',')[1] || '').toLowerCase().includes(busca);
+          var matchFiltro = filtro === 'todos' || a.status === filtro;
+          if (matchBusca && matchFiltro) { visiveis.push(a); }
+        });
+        lista.innerHTML = visiveis.map(meus_alugueis_renderCard).join('');
+        lista.classList.toggle('hidden', visiveis.length === 0);
+        vazio.classList.toggle('hidden', visiveis.length > 0);
+      }
+
+      function meus_alugueis_detalhe(id) {
+        var a = meus_alugueis_ativos.find(function(x){ return x.id === id; });
+        if (!a) return;
+        var html = '<div class="p-6 space-y-5">' +
+          '<div class="flex items-center gap-4">' +
+            '<div class="w-16 h-16 rounded-full ' + a.nomeCor + ' flex items-center justify-center text-white font-display text-2xl font-bold">' + a.inicial + '</div>' +
+            '<div><h3 class="font-display text-xl font-bold text-gray-900">Kitnet</h3><p class="text-sm text-gray-500">' + a.endereco + '</p></div>' +
+          '</div>' +
+          '<div class="grid grid-cols-2 gap-4">' +
+            '<div class="bg-gray-50 rounded-lg p-3"><span class="text-xs text-gray-400 block">Valor mensal</span><span class="font-display text-lg font-bold text-marca-700">' + brl(a.valor) + '</span></div>' +
+            '<div class="bg-gray-50 rounded-lg p-3"><span class="text-xs text-gray-400 block">Área</span><span class="font-display text-lg font-bold text-gray-800">' + a.area + ' m²</span></div>' +
+            '<div class="bg-gray-50 rounded-lg p-3"><span class="text-xs text-gray-400 block">Quartos</span><span class="font-display text-lg font-bold text-gray-800">' + a.quartos + '</span></div>' +
+            '<div class="bg-gray-50 rounded-lg p-3"><span class="text-xs text-gray-400 block">Mobiliado</span><span class="font-display text-lg font-bold text-gray-800">' + (a.mobiliado ? 'Sim' : 'Não') + '</span></div>' +
+            '<div class="bg-gray-50 rounded-lg p-3"><span class="text-xs text-gray-400 block">Início do contrato</span><span class="font-display text-sm font-bold text-gray-800">' + dataBR(a.inicio) + '</span></div>' +
+            '<div class="bg-gray-50 rounded-lg p-3"><span class="text-xs text-gray-400 block">Vencimento</span><span class="font-display text-sm font-bold text-gray-800">' + dataBR(a.fim) + '</span></div>' +
+          '</div>' +
+          '<div class="bg-marca-50 rounded-lg p-4"><span class="text-xs text-marca-600 font-medium block mb-1">Proprietário</span><span class="text-sm text-gray-800">' + a.proprietario + '</span><span class="text-xs text-gray-500 ml-3">' + a.tel + '</span></div>' +
+          '<div class="flex items-center">' + meus_alugueis_statusBadge(a.status) + '</div>' +
+        '</div>';
+        abrirModal(html, 'Detalhes do aluguel');
+      }
+
+      function meus_alugueis_contrato(id) {
+        var a = meus_alugueis_ativos.find(function(x){ return x.id === id; });
+        if (!a) return;
+        var html = '<div class="p-6">' +
+          '<div class="flex items-center justify-between mb-6">' +
+            '<div><h3 class="font-display font-bold text-gray-900">Contrato de Locação</h3><p class="text-xs text-gray-400">Nº ' + String(2025000 + a.id) + '/2025</p></div>' +
+            meus_alugueis_statusBadge(a.status) +
+          '</div>' +
+          '<div class="space-y-3 text-sm">' +
+            '<div class="flex justify-between border-b border-gray-100 pb-2"><span class="text-gray-500">Locatário</span><span class="font-medium text-gray-800">Você</span></div>' +
+            '<div class="flex justify-between border-b border-gray-100 pb-2"><span class="text-gray-500">Imóvel</span><span class="font-medium text-gray-800 text-right max-w-[200px]">' + a.endereco + '</span></div>' +
+            '<div class="flex justify-between border-b border-gray-100 pb-2"><span class="text-gray-500">Valor</span><span class="font-medium text-gray-800">' + brl(a.valor) + '/mês</span></div>' +
+            '<div class="flex justify-between border-b border-gray-100 pb-2"><span class="text-gray-500">Período</span><span class="font-medium text-gray-800">' + dataBR(a.inicio) + ' → ' + dataBR(a.fim) + '</span></div>' +
+            '<div class="flex justify-between border-b border-gray-100 pb-2"><span class="text-gray-500">Reajuste</span><span class="font-medium text-gray-800">IGP-M anual</span></div>' +
+            '<div class="flex justify-between border-b border-gray-100 pb-2"><span class="text-gray-500">Fiador</span><span class="font-medium text-gray-800">Seguro fiança</span></div>' +
+          '</div>' +
+          '<div class="flex gap-3 mt-6">' +
+            '<button onclick="toast(\'PDF gerado com sucesso!\', \'ok\'); fecharModal();" class="btn bg-marca-600 hover:bg-marca-700 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-all active:scale-95">Baixar PDF</button>' +
+            '<button onclick="fecharModal()" class="btn bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2.5 rounded-xl text-sm font-medium transition-all active:scale-95">Fechar</button>' +
+          '</div>' +
+        '</div>';
+        abrirModal(html, 'Contrato #' + String(2025000 + a.id));
+      }
+
+      function meus_alugueis_manutencao(id) {
+        var a = meus_alugueis_ativos.find(function(x){ return x.id === id; });
+        if (!a) return;
+        var html = '<div class="p-6">' +
+          '<h3 class="font-display font-bold text-gray-900 mb-1">Solicitar manutenção</h3>' +
+          '<p class="text-xs text-gray-400 mb-4">' + a.endereco + '</p>' +
+          '<div class="space-y-3">' +
+            '<div><label class="text-xs font-medium text-gray-600 block mb-1">Tipo de problema</label><select class="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500"><option>Elétrico</option><option>Hidráulico</option><option>Alvenaria / Pintura</option><option>Eletrodoméstico</option><option>Outro</option></select></div>' +
+            '<div><label class="text-xs font-medium text-gray-600 block mb-1">Descrição</label><textarea rows="3" class="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 resize-none" placeholder="Descreva o problema..."></textarea></div>' +
+            '<div><label class="text-xs font-medium text-gray-600 block mb-1">Urgência</label><div class="flex gap-2">' +
+              '<button class="flex-1 py-2 rounded-lg border border-gray-200 text-xs font-medium text-gray-600 hover:bg-gray-50 transition-all">Baixa</button>' +
+              '<button class="flex-1 py-2 rounded-lg border border-marca-500 bg-marca-50 text-xs font-medium text-marca-700">Média</button>' +
+              '<button class="flex-1 py-2 rounded-lg border border-gray-200 text-xs font-medium text-gray-600 hover:bg-gray-50 transition-all">Alta</button>' +
+            '</div></div>' +
+          '</div>' +
+          '<div class="flex gap-3 mt-5">' +
+            '<button onclick="toast(\'Solicitação enviada com sucesso!\', \'ok\'); fecharModal();" class="btn bg-marca-600 hover:bg-marca-700 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-all active:scale-95">Enviar solicitação</button>' +
+            '<button onclick="fecharModal()" class="btn bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2.5 rounded-xl text-sm font-medium transition-all active:scale-95">Cancelar</button>' +
+          '</div>' +
+        '</div>';
+        abrirModal(html, 'Manutenção');
+      }
+
+      function meus_alugueis_reabrirModal(id) {
+        var a = meus_alugueis_ativos.find(function(x){ return x.id === id; });
+        if (!a) return;
+        var html = '<div class="p-6">' +
+          '<h3 class="font-display font-bold text-gray-900 mb-1">Renovar contrato</h3>' +
+          '<p class="text-xs text-gray-400 mb-4">' + a.endereco + '</p>' +
+          '<div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4"><p class="text-xs text-amber-700">O valor atual é ' + brl(a.valor) + '/mês. O reajuste será aplicado conforme cláusula contratual.</p></div>' +
+          '<div class="space-y-3">' +
+            '<div><label class="text-xs font-medium text-gray-600 block mb-1">Novo período (meses)</label><input type="number" value="12" class="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500"></div>' +
+            '<div><label class="text-xs font-medium text-gray-600 block mb-1">Observações</label><textarea rows="2" class="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 resize-none" placeholder="Alguma solicitação especial?"></textarea></div>' +
+          '</div>' +
+          '<div class="flex gap-3 mt-5">' +
+            '<button onclick="toast(\'Solicitação de renovação enviada!\', \'ok\'); fecharModal();" class="btn bg-marca-600 hover:bg-marca-700 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-all active:scale-95">Solicitar renovação</button>' +
+            '<button onclick="fecharModal()" class="btn bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2.5 rounded-xl text-sm font-medium transition-all active:scale-95">Cancelar</button>' +
+          '</div>' +
+        '</div>';
+        abrirModal(html, 'Renovar contrato');
+      }
+
+      function meus_alugueis_reavaliar(id) {
+        var h = meus_alugueis_historico.find(function(x){ return x.id === id; });
+        if (!h) return;
+        var html = '<div class="p-6">' +
+          '<h3 class="font-display font-bold text-gray-900 mb-1">Reavaliar aluguel</h3>' +
+          '<p class="text-xs text-gray-400 mb-4">' + h.endereco + '</p>' +
+          '<div class="flex items-center gap-1 mb-4">' +
+            '<svg class="w-6 h-6 text-amber-400 cursor-pointer hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>' +
+            '<svg class="w-6 h-6 text-amber-400 cursor-pointer hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>' +
+            '<svg class="w-6 h-6 text-amber-400 cursor-pointer hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>' +
+            '<svg class="w-6 h-6 text-gray-200 cursor-pointer hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>' +
+            '<svg class="w-6 h-6 text-gray-200 cursor-pointer hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>' +
+          '</div>' +
+          '<div class="space-y-3">' +
+            '<div><label class="text-xs font-medium text-gray-600 block mb-1">Comentário (opcional)</label><textarea rows="2" class="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 resize-none" placeholder="Conte sua experiência..."></textarea></div>' +
+          '</div>' +
+          '<button onclick="toast(\'Avaliação registrada!\', \'ok\'); fecharModal();" class="btn bg-marca-600 hover:bg-marca-700 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-all active:scale-95 mt-4">Enviar avaliação</button>' +
+          '<button onclick="fecharModal()" class="btn bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2.5 rounded-xl text-sm font-medium transition-all active:scale-95 ml-2 mt-4">Cancelar</button>' +
+        '</div>';
+        abrirModal(html, 'Reavaliar aluguel');
+      }
+
+      function meus_alugueis_segundaVia() {
+        var html = '<div class="p-6">' +
+          '<h3 class="font-display font-bold text-gray-900 mb-1">Segunda via de boleto</h3>' +
+          '<p class="text-xs text-gray-400 mb-4">Selecione o boleto desejado</p>' +
+          '<div class="space-y-2 max-h-[300px] overflow-y-auto">' +
+            meus_alugueis_ativos.map(function(a) {
+              return '<div class="flex items-center justify-between bg-gray-50 rounded-lg p-3 hover:bg-gray-100 transition-colors">' +
+                '<div><p class="text-sm font-medium text-gray-800">' + brl(a.valor) + ' - ' + a.endereco.split(',')[1].trim() + '</p><p class="text-xs text-gray-400">Vencimento: ' + dataBR(a.vencimento) + '</p></div>' +
+                '<button onclick="toast(\'Boleto gerado!\', \'ok\'); fecharModal();" class="btn bg-marca-600 hover:bg-marca-700 text-white px-3 py-1.5 rounded-lg text-xs font-medium transition-all active:scale-95">Baixar</button>' +
+              '</div>';
+            }).join('') +
+          '</div>' +
+        '</div>';
+        abrirModal(html, 'Segunda via de boleto');
+      }
+
+      function meus_alugueis_historicoPagamentos() {
+        var html = '<div class="p-6">' +
+          '<h3 class="font-display font-bold text-gray-900 mb-4">Histórico de pagamentos</h3>' +
+          '<div class="space-y-2 max-h-[360px] overflow-y-auto">' +
+            ['2025-07', '2025-06', '2025-05', '2025-04', '2025-03', '2025-02', '2025-01', '2024-12', '2024-11', '2024-10'].map(function(mes, idx) {
+              var pago = idx < 7;
+              var valorMes = 8850;
+              return '<div class="flex items-center justify-between bg-gray-50 rounded-lg p-3">' +
+                '<div class="flex items-center gap-3">' +
+                  '<div class="w-8 h-8 rounded-full ' + (pago ? 'bg-emerald-100' : 'bg-red-100') + ' flex items-center justify-center">' +
+                    (pago ? '<svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>' : '<svg class="w-4 h-4 text-red-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>') +
+                  '</div>' +
+                  '<div><p class="text-sm font-medium text-gray-800">' + mes + '/2025</p><p class="text-xs text-gray-400">' + (pago ? 'Pago em ' + (idx === 0 ? '01/08' : (idx * 3 + 1) + '/' + mes.split('-')[1]) : 'Pendente') + '</p></div>' +
+                '</div>' +
+                '<span class="text-sm font-medium text-gray-800">' + brl(valorMes) + '</span>' +
+              '</div>';
+            }).join('') +
+          '</div>' +
+        '</div>';
+        abrirModal(html, 'Histórico de pagamentos');
+      }
+
+      function meus_alugueis_negociar() {
+        var html = '<div class="p-6">' +
+          '<h3 class="font-display font-bold text-gray-900 mb-1">Negociar reajuste</h3>' +
+          '<p class="text-xs text-gray-400 mb-4">Proponha um novo valor para seus aluguéis ativos</p>' +
+          '<div class="space-y-3">' +
+            '<div><label class="text-xs font-medium text-gray-600 block mb-1">Selecione o imóvel</label><select id="neg-imo' + 'vel" class="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500">' +
+              meus_alugueis_ativos.map(function(a) { return '<option value="' + a.id + '">' + a.endereco + ' - ' + brl(a.valor) + '</option>'; }).join('') +
+            '</select></div>' +
+            '<div><label class="text-xs font-medium text-gray-600 block mb-1">Valor proposto (R$)</label><input type="text" value="' + brl(meus_alugueis_ativos[0].valor) + '" class="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500" onfocus="this.select()"></div>' +
+            '<div><label class="text-xs font-medium text-gray-600 block mb-1">Justificativa</label><textarea rows="3" class="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 resize-none" placeholder="Explique o motivo da negociação..."></textarea></div>' +
+          '</div>' +
+          '<div class="flex gap-3 mt-5">' +
+            '<button onclick="toast(\'Proposta enviada ao proprietário!\', \'ok\'); fecharModal();" class="btn bg-marca-600 hover:bg-marca-700 text-white px-4 py-2.5 rounded-xl text-sm font-medium transition-all active:scale-95">Enviar proposta</button>' +
+            '<button onclick="fecharModal()" class="btn bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2.5 rounded-xl text-sm font-medium transition-all active:scale-95">Cancelar</button>' +
+          '</div>' +
+        '</div>';
+        abrirModal(html, 'Negociar reajuste');
+      }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        meus_alugueis_filtrar();
+        var hist = document.getElementById('lista-historico');
+        var vazioHist = document.getElementById('vazio-historico');
+        hist.innerHTML = meus_alugueis_historico.map(meus_alugueis_renderHistorico).join('');
+      });
+      </script>
+    </section>
+
     <!-- TELAS -->
     </main>
   </div>
