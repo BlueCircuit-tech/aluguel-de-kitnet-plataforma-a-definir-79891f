@@ -3023,6 +3023,315 @@ renderFiltros();
       </script>
     </section>
 
+    <section data-tela="favoritos" class="hidden">
+        <div class="flex min-h-[calc(100vh-80px)]">
+            <aside id="favoritos-sidebar" class="w-72 bg-white border-r border-gray-100 p-6 flex-shrink-0">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="font-display font-bold text-gray-800 text-lg">Filtros</h3>
+                    <button onclick="favoritos_limparFiltros()" class="text-sm text-marca-600 hover:text-marca-800 font-medium transition-colors">Limpar</button>
+                </div>
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Bairro</label>
+                        <select id="favoritos-filtro-bairro" onchange="favoritos_aplicarFiltros()" class="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm focus:ring-2 focus:ring-marca-500 focus:border-transparent outline-none transition-all bg-gray-50">
+                            <option value="">Todos os bairros</option>
+                            <option value="jardins">Jardins</option>
+                            <option value="vila-mariana">Vila Mariana</option>
+                            <option value="pinheiros">Pinheiros</option>
+                            <option value="moema">Moema</option>
+                            <option value="perdizes">Perdizes</option>
+                            <option value="liberdade">Liberdade</option>
+                            <option value="consolacao">Consolação</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Faixa de preço</label>
+                        <select id="favoritos-filtro-preco" onchange="favoritos_aplicarFiltros()" class="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm focus:ring-2 focus:ring-marca-500 focus:border-transparent outline-none transition-all bg-gray-50">
+                            <option value="">Qualquer valor</option>
+                            <option value="0-1500">Até R$ 1.500</option>
+                            <option value="1500-2500">R$ 1.500 a R$ 2.500</option>
+                            <option value="2500-4000">R$ 2.500 a R$ 4.000</option>
+                            <option value="4000">Acima de R$ 4.000</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Disponibilidade</label>
+                        <select id="favoritos-filtro-disponibilidade" onchange="favoritos_aplicarFiltros()" class="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm focus:ring-2 focus:ring-marca-500 focus:border-transparent outline-none transition-all bg-gray-50">
+                            <option value="">Todos</option>
+                            <option value="disponivel">Disponíveis</option>
+                            <option value="indisponivel">Indisponíveis</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Ordenar por</label>
+                        <select id="favoritos-ordenacao" onchange="favoritos_ordenar()" class="w-full rounded-xl border border-gray-200 px-3 py-2.5 text-sm focus:ring-2 focus:ring-marca-500 focus:border-transparent outline-none transition-all bg-gray-50">
+                            <option value="data-desc">Mais recentes</option>
+                            <option value="data-asc">Mais antigos</option>
+                            <option value="preco-asc">Menor preço</option>
+                            <option value="preco-desc">Maior preço</option>
+                            <option value="nome-asc">Nome A-Z</option>
+                        </select>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="flex-1 p-8">
+                <div class="flex items-start justify-between mb-8">
+                    <div>
+                        <h1 class="font-display font-extrabold text-3xl text-gray-900 mb-1">Meus Favoritos</h1>
+                        <p class="text-gray-500">Você salvou <span id="favoritos-contador" class="font-semibold text-marca-600">0</span> imóveis — selecione até 3 para comparar lado a lado</p>
+                    </div>
+                    <button id="favoritos-btn-comparar" onclick="favoritos_abrirComparacao()" disabled class="bg-marca-800 hover:bg-marca-900 text-white px-6 py-3 rounded-xl font-semibold text-sm transition-all active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100 flex items-center gap-2 shadow-lg shadow-marca-800/20">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+                        Comparar (<span id="favoritos-contador-selecao">0</span>/3)
+                    </button>
+                </div>
+
+                <div id="favoritos-estado-vazio" class="hidden flex-col items-center justify-center py-24 text-center">
+                    <div class="w-32 h-32 rounded-full bg-marca-50 flex items-center justify-center mb-6">
+                        <svg class="w-16 h-16 text-marca-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-gray-800 mb-2">Nenhum favorito ainda</h3>
+                    <p class="text-gray-500 mb-6 max-w-sm">Explore kitnets e salve as que mais gostar. Toque no coração nos resultados da busca para adicionar aqui.</p>
+                    <button onclick="mostrarTela('resultados-da-busca')" class="bg-marca-800 hover:bg-marca-900 text-white px-6 py-3 rounded-xl font-semibold text-sm transition-all active:scale-95 shadow-lg shadow-marca-800/20">Buscar imóveis</button>
+                </div>
+
+                <div id="favoritos-grade" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"></div>
+
+                <div id="favoritos-sem-resultados" class="hidden flex-col items-center justify-center py-24 text-center">
+                    <div class="w-24 h-24 rounded-full bg-gray-100 flex items-center justify-center mb-4">
+                        <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                    <h3 class="font-display font-bold text-lg text-gray-800 mb-1">Nenhum imóvel encontrado</h3>
+                    <p class="text-gray-500 text-sm mb-4">Tente ajustar os filtros para ver mais resultados</p>
+                    <button onclick="favoritos_limparFiltros()" class="text-marca-600 hover:text-marca-800 font-semibold text-sm transition-colors">Limpar filtros</button>
+                </div>
+            </main>
+        </div>
+    </section>
+    <script>
+    (function() {
+        var favoritos = [
+            { id: 1, titulo: 'Kitnet Studio — Jardins', bairro: 'jardins', preco: 2200, endereco: 'Rua Oscar Freire, 456 — Jardins, São Paulo — SP', area: 28, quartos: 1, banheiros: 1, vagas: 0, andar: 3, dataSalvamento: '2026-02-18', disponivel: true, destaque: true, comodidades: ['Wi-Fi', 'Ar Condicionado', 'Gás Encanado', 'Portaria 24h', 'Lavanderia'], cor: 'from-blue-400 to-indigo-500', inicial: 'KJ' },
+            { id: 2, titulo: 'Kitnet Mobiliada — Vila Mariana', bairro: 'vila-mariana', preco: 1800, endereco: 'Rua Domingos de Morais, 1200 — Vila Mariana, São Paulo — SP', area: 22, quartos: 1, banheiros: 1, vagas: 0, andar: 1, dataSalvamento: '2026-02-15', disponivel: true, destaque: false, comodidades: ['Wi-Fi', 'Mobiliada', 'Gás Encanado', 'Sacada'], cor: 'from-emerald-400 to-teal-500', inicial: 'VM' },
+            { id: 3, titulo: 'Kitnet Compacta — Pinheiros', bairro: 'pinheiros', preco: 1600, endereco: 'Rua dos Pinheiros, 789 — Pinheiros, São Paulo — SP', area: 18, quartos: 1, banheiros: 1, vagas: 0, andar: 5, dataSalvamento: '2026-02-20', disponivel: false, destaque: false, comodidades: ['Wi-Fi', 'Ar Condicionado'], cor: 'from-amber-400 to-orange-500', inicial: 'KP' },
+            { id: 4, titulo: 'Kitnet Confort — Moema', bairro: 'moema', preco: 2800, endereco: 'Alameda dos Arapanés, 350 — Moema, São Paulo — SP', area: 32, quartos: 1, banheiros: 1, vagas: 1, andar: 7, dataSalvamento: '2026-02-10', disponivel: true, destaque: true, comodidades: ['Wi-Fi', 'Ar Condicionado', 'Vaga Garagem', 'Piscina', 'Academia', 'Portaria 24h'], cor: 'from-pink-400 to-rose-500', inicial: 'CM' },
+            { id: 5, titulo: 'Kitnet Econômica — Liberdade', bairro: 'liberdade', preco: 1200, endereco: 'Rua da Glória, 222 — Liberdade, São Paulo — SP', area: 16, quartos: 1, banheiros: 1, vagas: 0, andar: 2, dataSalvamento: '2026-02-22', disponivel: true, destaque: false, comodidades: ['Wi-Fi', 'Gás Encanado'], cor: 'from-cyan-400 to-sky-500', inicial: 'EL' },
+            { id: 6, titulo: 'Kitnet Premium — Perdizes', bairro: 'perdizes', preco: 3500, endereco: 'Rua Cardoso de Almeida, 600 — Perdizes, São Paulo — SP', area: 38, quartos: 1, banheiros: 1, vagas: 1, andar: 10, dataSalvamento: '2026-02-05', disponivel: true, destaque: true, comodidades: ['Wi-Fi', 'Ar Condicionado', 'Vaga Garagem', 'Piscina', 'Academia', 'Coworking', 'Portaria 24h', 'Lavanderia'], cor: 'from-violet-400 to-purple-600', inicial: 'PP' },
+            { id: 7, titulo: 'Kitnet Charmosa — Consolação', bairro: 'consolacao', preco: 1950, endereco: 'Rua Augusta, 890 — Consolação, São Paulo — SP', area: 24, quartos: 1, banheiros: 1, vagas: 0, andar: 4, dataSalvamento: '2026-02-12', disponivel: true, destaque: false, comodidades: ['Wi-Fi', 'Ar Condicionado', 'Gás Encanado', 'Sacada', 'Elevador'], cor: 'from-teal-400 to-emerald-600', inicial: 'CC' },
+            { id: 8, titulo: 'Kitnet Aconchegante — Vila Mariana', bairro: 'vila-mariana', preco: 2100, endereco: 'Rua Napoleão de Barros, 450 — Vila Mariana, São Paulo — SP', area: 26, quartos: 1, banheiros: 1, vagas: 0, andar: 6, dataSalvamento: '2026-02-08', disponivel: false, destaque: false, comodidades: ['Wi-Fi', 'Ar Condicionado', 'Gás Encanado', 'Portaria 24h'], cor: 'from-rose-400 to-pink-600', inicial: 'VA' }
+        ];
+        var selecionados = [];
+        var filtroAtual = { bairro: '', preco: '', disponibilidade: '' };
+        var ordenacaoAtual = 'data-desc';
+        window.favoritos_remover = function(id, evento) {
+            if (evento) { evento.stopPropagation(); evento.preventDefault(); }
+            abrirModal('<div class="text-center py-4"><div class="w-14 h-14 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-4"><svg class="w-7 h-7 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg></div><h3 class="font-display font-bold text-lg text-gray-900 mb-2">Remover dos favoritos?</h3><p class="text-gray-500 text-sm mb-6">Este imóvel será removido da sua lista de favoritos.</p><div class="flex gap-3 justify-center"><button onclick="favoritos_confirmarRemocao(' + id + ')" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2.5 rounded-xl font-semibold text-sm transition-all active:scale-95">Remover</button><button onclick="fecharModal()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-6 py-2.5 rounded-xl font-semibold text-sm transition-all active:scale-95">Cancelar</button></div></div>', 'Confirmar remoção');
+        };
+        window.favoritos_confirmarRemocao = function(id) {
+            fecharModal();
+            favoritos = favoritos.filter(function(f) { return f.id !== id; });
+            selecionados = selecionados.filter(function(s) { return s !== id; });
+            favoritos_renderizar();
+            toast('Imóvel removido dos favoritos', 'info');
+        };
+        window.favoritos_restaurar = function(id, evento) {
+            if (evento) { evento.stopPropagation(); evento.preventDefault(); }
+            selecionados.push(id);
+            toast('Restaurado! Selecione até ' + (3 - selecionados.length) + ' para comparar', 'ok');
+            favoritos_renderizar();
+        };
+        window.favoritos_toggleSelecao = function(id, evento) {
+            if (evento) { evento.stopPropagation(); evento.preventDefault(); }
+            var idx = selecionados.indexOf(id);
+            if (idx > -1) {
+                selecionados.splice(idx, 1);
+            } else {
+                if (selecionados.length >= 3) {
+                    toast('Máximo de 3 imóveis para comparação', 'erro');
+                    return;
+                }
+                selecionados.push(id);
+            }
+            favoritos_renderizar();
+        };
+        window.favoritos_abrirDetalhe = function(id) {
+            var imovel = favoritos.find(function(f) { return f.id === id; });
+            if (!imovel) return;
+            var statusBadge = imovel.disponivel
+                ? '<span class="badge bg-green-100 text-green-700">Disponível</span>'
+                : '<span class="badge bg-red-100 text-red-700">Indisponível</span>';
+            var destaqueBadge = imovel.destaque ? '<span class="badge bg-amber-100 text-amber-700 ml-1">⭐ Destaque</span>' : '';
+            var comodidadesHtml = imovel.comodidades.map(function(c) {
+                return '<span class="inline-flex items-center gap-1 px-2.5 py-1 bg-gray-50 text-gray-600 text-xs rounded-lg"><svg class="w-3 h-3 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>' + c + '</span>';
+            }).join('');
+            var html = '<div class="flex flex-col md:flex-row gap-6">'
+                + '<div class="w-full md:w-80 flex-shrink-0">'
+                + '<div class="w-full h-48 md:h-52 rounded-2xl bg-gradient-to-br ' + imovel.cor + ' flex items-center justify-center shadow-lg"><span class="text-white text-2xl font-display font-bold">' + imovel.inicial + '</span></div>'
+                + '<div class="mt-4 flex items-center gap-3">' + statusBadge + destaqueBadge + '</div>'
+                + '</div>'
+                + '<div class="flex-1 min-w-0">'
+                + '<h2 class="font-display font-bold text-xl text-gray-900 mb-1">' + imovel.titulo + '</h2>'
+                + '<p class="text-gray-500 text-sm mb-3 flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>' + imovel.endereco + '</p>'
+                + '<p class="text-2xl font-extrabold text-marca-700 mb-4">' + brl(imovel.preco) + '<span class="text-sm font-normal text-gray-500">/mês</span></p>'
+                + '<div class="grid grid-cols-4 gap-3 mb-4">'
+                + '<div class="bg-gray-50 rounded-xl p-3 text-center"><p class="text-lg font-bold text-gray-800">' + imovel.area + '</p><p class="text-xs text-gray-500">m²</p></div>'
+                + '<div class="bg-gray-50 rounded-xl p-3 text-center"><p class="text-lg font-bold text-gray-800">' + imovel.quartos + '</p><p class="text-xs text-gray-500">Quarto</p></div>'
+                + '<div class="bg-gray-50 rounded-xl p-3 text-center"><p class="text-lg font-bold text-gray-800">' + imovel.banheiros + '</p><p class="text-xs text-gray-500">Banheiro</p></div>'
+                + '<div class="bg-gray-50 rounded-xl p-3 text-center"><p class="text-lg font-bold text-gray-800">' + (imovel.vagas > 0 ? imovel.vagas : '—') + '</p><p class="text-xs text-gray-500">Vaga</p></div>'
+                + '</div>'
+                + '<div class="mb-4"><h4 class="text-sm font-semibold text-gray-700 mb-2">Comodidades</h4><div class="flex flex-wrap gap-2">' + comodidadesHtml + '</div></div>'
+                + '<p class="text-xs text-gray-400">Salvo em ' + dataBR(imovel.dataSalvamento) + '</p>'
+                + '<div class="flex gap-3 mt-4">'
+                + (imovel.disponivel ? '<button onclick="fecharModal(); mostrarTela(\'agendar-visita\')" class="bg-marca-800 hover:bg-marca-900 text-white px-5 py-2.5 rounded-xl font-semibold text-sm transition-all active:scale-95 shadow-lg shadow-marca-800/20">Agendar visita</button>' : '<button disabled class="bg-gray-300 text-gray-500 px-5 py-2.5 rounded-xl font-semibold text-sm cursor-not-allowed">Indisponível</button>')
+                + '</div></div></div>';
+            abrirModal(html, imovel.titulo);
+        };
+        window.favoritos_aplicarFiltros = function() {
+            filtroAtual.bairro = document.getElementById('favoritos-filtro-bairro').value;
+            filtroAtual.preco = document.getElementById('favoritos-filtro-preco').value;
+            filtroAtual.disponibilidade = document.getElementById('favoritos-filtro-disponibilidade').value;
+            favoritos_renderizar();
+        };
+        window.favoritos_limparFiltros = function() {
+            document.getElementById('favoritos-filtro-bairro').value = '';
+            document.getElementById('favoritos-filtro-preco').value = '';
+            document.getElementById('favoritos-filtro-disponibilidade').value = '';
+            filtroAtual = { bairro: '', preco: '', disponibilidade: '' };
+            favoritos_renderizar();
+        };
+        window.favoritos_ordenar = function() {
+            ordenacaoAtual = document.getElementById('favoritos-ordenacao').value;
+            favoritos_renderizar();
+        };
+        window.favoritos_abrirComparacao = function() {
+            if (selecionados.length < 2) {
+                toast('Selecione pelo menos 2 imóveis para comparar', 'erro');
+                return;
+            }
+            var imoveis = selecionados.map(function(id) { return favoritos.find(function(f) { return f.id === id; }); }).filter(Boolean);
+            var labels = ['Característica', ''];
+            imoveis.forEach(function(im) { labels.push(im.titulo); });
+            labels.push('');
+            var rows = [
+                { label: 'Preço/mês', values: imoveis.map(function(i) { return '<span class="font-bold text-marca-700">' + brl(i.preco) + '</span>'; }), align: true },
+                { label: 'Área', values: imoveis.map(function(i) { return i.area + ' m²'; }), align: true },
+                { label: 'Quartos', values: imoveis.map(function(i) { return i.quartos; }), align: true },
+                { label: 'Banheiros', values: imoveis.map(function(i) { return i.banheiros; }), align: true },
+                { label: 'Vagas', values: imoveis.map(function(i) { return i.vagas > 0 ? i.vagas : 'Sem'; }), align: true },
+                { label: 'Andar', values: imoveis.map(function(i) { return i.andar + 'º'; }), align: true },
+                { label: 'Bairro', values: imoveis.map(function(i) { return i.endereco.split('—')[1] ? i.endereco.split('—')[1].trim() : i.bairro; }), align: false },
+                { label: 'Status', values: imoveis.map(function(i) { return i.disponivel ? '<span class="badge bg-green-100 text-green-700">Disponível</span>' : '<span class="badge bg-red-100 text-red-700">Indisponível</span>'; }), align: false },
+                { label: 'Comodidades', values: imoveis.map(function(i) { return i.comodidades.map(function(c) { return '<span class="inline-block px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded-md mb-1 mr-1">' + c + '</span>'; }).join(' '); }), align: false }
+            ];
+            var html = '<div class="overflow-x-auto -mx-2"><table class="w-full border-collapse text-sm" style="min-width:500px;"><thead><tr class="border-b-2 border-gray-100">';
+            imoveis.forEach(function(im, idx) {
+                html += '<th class="p-3 text-center"><div class="w-20 h-20 rounded-xl bg-gradient-to-br ' + im.cor + ' flex items-center justify-center mx-auto mb-2 shadow"><span class="text-white text-lg font-display font-bold">' + im.inicial + '</span></div><span class="font-display font-bold text-gray-800 text-xs leading-tight block">' + im.titulo + '</span></th>';
+            });
+            html += '</tr></thead><tbody>';
+            rows.forEach(function(row) {
+                html += '<tr class="border-b border-gray-50 hover:bg-gray-50/50">';
+                html += '<td class="p-3 font-semibold text-gray-600 text-xs w-32">' + row.label + '</td>';
+                imoveis.forEach(function() {
+                    html += '<td class="p-3 text-center ' + (row.align ? 'text-center' : 'text-left') + '">' + row.values[imoveis.indexOf(arguments[1])] + '</td>';
+                });
+                html += '</tr>';
+            });
+            html += '</tbody></table></div>';
+            abrirModal(html, 'Comparar imóveis (' + imoveis.length + ' selecionados)');
+        };
+        function getFiltrados() {
+            var arr = favoritos.slice();
+            if (filtroAtual.bairro) arr = arr.filter(function(f) { return f.bairro === filtroAtual.bairro; });
+            if (filtroAtual.preco) {
+                var parts = filtroAtual.preco.split('-');
+                var min = parseFloat(parts[0]) || 0;
+                var max = parseFloat(parts[1]) || Infinity;
+                arr = arr.filter(function(f) { return f.preco >= min && f.preco <= max; });
+            }
+            if (filtroAtual.disponibilidade === 'disponivel') arr = arr.filter(function(f) { return f.disponivel; });
+            if (filtroAtual.disponibilidade === 'indisponivel') arr = arr.filter(function(f) { return !f.disponivel; });
+            var parts = ordenacaoAtual.split('-');
+            var campo = parts[0], ordem = parts[1] || 'asc';
+            arr.sort(function(a, b) {
+                var va, vb;
+                if (campo === 'data') { va = new Date(a.dataSalvamento).getTime(); vb = new Date(b.dataSalvamento).getTime(); }
+                else if (campo === 'preco') { va = a.preco; vb = b.preco; }
+                else if (campo === 'nome') { va = a.titulo.toLowerCase(); vb = b.titulo.toLowerCase(); }
+                if (va < vb) return ordem === 'asc' ? -1 : 1;
+                if (va > vb) return ordem === 'asc'  ? 1 : -1;
+                return 0;
+            });
+            return arr;
+        }
+        function favoritos_renderizar() {
+            var grade = document.getElementById('favoritos-grade');
+            var vazio = document.getElementById('favoritos-estado-vazio');
+            var semResultados = document.getElementById('favoritos-sem-resultados');
+            var contador = document.getElementById('favoritos-contador');
+            var btnComparar = document.getElementById('favoritos-btn-comparar');
+            var contadorSel = document.getElementById('favoritos-contador-selecao');
+            var filtrados = getFiltrados();
+            contador.textContent = favoritos.length;
+            contadorSel.textContent = selecionados.length;
+            btnComparar.disabled = selecionados.length < 2;
+            if (favoritos.length === 0) {
+                grade.classList.add('hidden');
+                semResultados.classList.add('hidden');
+                vazio.classList.remove('hidden');
+                vazio.classList.add('flex');
+                return;
+            }
+            vazio.classList.add('hidden');
+            vazio.classList.remove('flex');
+            if (filtrados.length === 0) {
+                grade.classList.add('hidden');
+                semResultados.classList.remove('hidden');
+                semResultados.classList.add('flex');
+                return;
+            }
+            semResultados.classList.add('hidden');
+            semResultados.classList.remove('flex');
+            grade.classList.remove('hidden');
+            var html = '';
+            filtrados.forEach(function(imovel) {
+                var isSelected = selecionados.indexOf(imovel.id) > -1;
+                html += '<div class="card bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 cursor-pointer ' + (isSelected ? 'ring-2 ring-marca-500 ring-offset-2' : '') + '" onclick="favoritos_abrirDetalhe(' + imovel.id + ')">';
+                html += '<div class="relative h-48 bg-gradient-to-br ' + imovel.cor + '">';
+                html += '<span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-gray-800 text-xs font-bold px-2.5 py-1 rounded-lg">' + imovel.inicial + '</span>';
+                if (!imovel.disponivel) {
+                    html += '<div class="absolute inset-0 bg-black/40 flex items-center justify-center"><span class="bg-red-500 text-white text-sm font-bold px-4 py-2 rounded-xl shadow-lg">Indisponível</span></div>';
+                }
+                if (imovel.destaque) {
+                    html += '<span class="absolute top-3 right-3 bg-amber-400 text-amber-900 text-xs font-bold px-2.5 py-1 rounded-lg">⭐ Destaque</span>';
+                }
+                html += '<div class="absolute bottom-3 right-3 flex gap-2">';
+                html += '<button onclick="favoritos_toggleSelecao(' + imovel.id + ', event)" class="w-9 h-9 rounded-xl bg-white/90 backdrop-blur-sm flex items-center justify-center transition-all hover:bg-white ' + (isSelected ? 'text-marca-600 shadow-md' : 'text-gray-400 hover:text-marca-500') + '" title="Selecionar para comparar">';
+                html += '<svg class="w-5 h-5" fill="' + (isSelected ? 'currentColor' : 'none') + '" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></button>';
+                html += '<button onclick="favoritos_remover(' + imovel.id + ', event)" class="w-9 h-9 rounded-xl bg-white/90 backdrop-blur-sm flex items-center justify-center transition-all hover:bg-red-50 text-gray-400 hover:text-red-500" title="Remover dos favoritos">';
+                html += '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg></button>';
+                html += '</div></div>';
+                html += '<div class="p-5">';
+                html += '<div class="flex items-start justify-between mb-1"><h3 class="font-display font-bold text-gray-900 text-base leading-tight pr-2">' + imovel.titulo + '</h3>' + (!imovel.disponivel ? '<span class="badge bg-red-100 text-red-700 text-xs flex-shrink-0">Alugado</span>' : '') + '</div>';
+                html += '<p class="text-gray-400 text-xs mb-3 flex items-center gap-1 truncate"><svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>' + imovel.endereco.split('—')[1] ? imovel.endereco.split('—')[1].trim() : imovel.endereco + '</p>';
+                html += '<div class="flex items-center gap-3 mb-3 text-xs text-gray-500">';
+                html += '<span class="flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 4l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>' + imovel.area + ' m²</span>';
+                html += '<span class="flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>' + imovel.quartos + ' qto</span>';
+                html += '<span class="flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>' + imovel.andar + 'º andar</span>';
+                html += '</div>';
+                html += '<div class="flex items-center justify-between pt-3 border-t border-gray-50">';
+                html += '<span class="text-xl font-extrabold text-marca-700">' + brl(imovel.preco) + '<span class="text-xs font-normal text-gray-400">/mês</span></span>';
+                html += '<span class="text-xs text-gray-400">Salvo em ' + dataBR(imovel.dataSalvamento) + '</span>';
+                html += '</div></div></div>';
+            });
+            grade.innerHTML = html;
+        }
+        window.favoritos_init = function() {
+            favoritos_renderizar();
+        };
+    })();
+    </script>
+
     <!-- TELAS -->
     </main>
   </div>
