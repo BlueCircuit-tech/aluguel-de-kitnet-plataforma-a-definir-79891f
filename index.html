@@ -945,6 +945,563 @@ renderFiltros();
       </script>
     </section>
 
+    <section data-tela="detalhes-do-imovel" class="hidden">
+        <div class="max-w-[1280px] mx-auto px-6 lg:px-8 py-6">
+            <!-- Breadcrumb -->
+            <nav class="flex items-center gap-2 text-sm text-gray-400 mb-4 font-body">
+                <button onclick="mostrarTela('home')" class="hover:text-marca-600 transition-colors">Início</button>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <button onclick="mostrarTela('resultados-da-busca')" class="hover:text-marca-600 transition-colors">Resultados</button>
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <span class="text-gray-700 font-medium">Kitnet Jardins — R. Augusta, 1200</span>
+            </nav>
+
+            <!-- Header do Imóvel -->
+            <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span class="badge bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">Disponível</span>
+                        <span class="badge bg-marca-50 text-marca-700 text-xs font-semibold px-3 py-1 rounded-full">Destaque</span>
+                    </div>
+                    <h1 class="font-display text-2xl lg:text-3xl font-bold text-gray-900 mb-1">Kitnet Mobiliada — Jardins, São Paulo</h1>
+                    <p class="text-gray-500 font-body flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243A8 8 0 1117.657 16.657z"/><circle cx="12" cy="11" r="1.5" fill="currentColor"/></svg>
+                        Rua Augusta, 1200 — Jardins, São Paulo — SP, 01413-000
+                    </p>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="detalhes_do_imovel_toggleFavorito()" id="btn-favorito" class="flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-gray-200 text-gray-600 font-medium hover:border-red-200 hover:text-red-500 transition-all active:scale-95">
+                        <svg id="icone-favorito" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                        <span id="texto-favorito">Salvar</span>
+                    </button>
+                    <button onclick="detalhes_do_imovel_compartilhar()" class="flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-gray-200 text-gray-600 font-medium hover:border-marca-200 hover:text-marca-600 transition-all active:scale-95">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 111.024 5.435l-6.632 3.316m6.632-3.316v0"/></svg>
+                        Compartilhar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Carrossel de Fotos -->
+            <div class="relative mb-8 rounded-2xl overflow-hidden bg-gray-100">
+                <div id="carrossel-container" class="flex transition-transform duration-500 ease-out" style="will-change:transform;">
+                    <div class="w-full flex-shrink-0 h-[320px] sm:h-[420px] flex items-center justify-center relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-amber-200 via-orange-200 to-rose-300"></div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/60 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m7-7l7 7M5 10v10a2 2 0 002 2h10a2 2 0 002-2V10M9 21V15a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+                            <p class="text-white/80 font-medium text-lg font-display">Quarto Principal</p>
+                            <p class="text-white/50 text-sm">Quarto com cama de solteiro, mesa de estudo e armário embutido</p>
+                        </div>
+                    </div>
+                    <div class="w-full flex-shrink-0 h-[320px] sm:h-[420px] flex items-center justify-center relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-emerald-200 via-teal-200 to-cyan-300"></div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/60 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                            <p class="text-white/80 font-medium text-lg font-display">Cozinha</p>
+                            <p class="text-white/50 text-sm">Cozinha compacta com cooktop, micro-ondas e geladeira</p>
+                        </div>
+                    </div>
+                    <div class="w-full flex-shrink-0 h-[320px] sm:h-[420px] flex items-center justify-center relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-200 via-indigo-200 to-violet-300"></div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/60 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>
+                            <p class="text-white/80 font-medium text-lg font-display">Banheiro</p>
+                            <p class="text-white/50 text-sm">Banheiro privativo com box de vidro e aquecedor</p>
+                        </div>
+                    </div>
+                    <div class="w-full flex-shrink-0 h-[320px] sm:h-[420px] flex items-center justify-center relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-sky-300 via-blue-300 to-indigo-400"></div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/60 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                            <p class="text-white/80 font-medium text-lg font-display">Vista do Prédio</p>
+                            <p class="text-white/50 text-sm">Fachada moderna com portaria 24h e elevador</p>
+                        </div>
+                    </div>
+                    <div class="w-full flex-shrink-0 h-[320px] sm:h-[420px] flex items-center justify-center relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-orange-200 via-amber-200 to-yellow-300"></div>
+                        <div class="relative z-10 text-center">
+                            <svg class="w-20 h-20 text-white/60 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            <p class="text-white/80 font-medium text-lg font-display">Área Comum</p>
+                            <p class="text-white/50 text-sm">Salão de festas, churrasqueira e piscina no terraço</p>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="detalhes_do_imovel_carrosselAnterior()" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center text-gray-700 hover:text-marca-600 transition-all active:scale-90 z-20">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                <button onclick="detalhes_do_imovel_carrosselProximo()" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 hover:bg-white rounded-full shadow-lg flex items-center justify-center text-gray-700 hover:text-marca-600 transition-all active:scale-90 z-20">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                </button>
+                <div id="carrossel-contador" class="absolute bottom-4 right-4 bg-black/50 text-white text-xs font-medium px-3 py-1 rounded-full z-20">1 / 5</div>
+            </div>
+            <div id="carrossel-dots" class="flex justify-center gap-2 -mt-4 mb-8"></div>
+
+            <!-- Conteúdo Principal + Sidebar -->
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Coluna Esquerda -->
+                <div class="flex-1 min-w-0">
+                    <!-- Valor e Especificações -->
+                    <div class="card p-6 mb-6">
+                        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
+                            <div>
+                                <p class="text-sm text-gray-500 mb-1 font-body">Aluguel mensal</p>
+                                <p class="font-display text-3xl font-bold text-gray-900" id="valor-aluguel">R$ 2.100,00</p>
+                                <p class="text-sm text-gray-500 mt-1">+ R$ 380,00 condomínio + R$ 95,00 IPTU</p>
+                                <p class="text-xs text-gray-400 mt-0.5">Total estimado: <span class="font-semibold text-gray-600" id="valor-total">R$ 2.575,00</span>/mês</p>
+                            </div>
+                            <div class="flex items-center gap-1 text-sm text-gray-500">
+                                <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                <span class="font-semibold text-gray-700">4.7</span>
+                                <span class="text-gray-400">(23 avaliações)</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-3">
+                            <div class="flex items-center gap-2 bg-gray-50 rounded-xl px-4 py-2.5">
+                                <svg class="w-5 h-5 text-marca-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+                                <span class="text-sm font-medium text-gray-700">28 m²</span>
+                            </div>
+                            <div class="flex items-center gap-2 bg-gray-50 rounded-xl px-4 py-2.5">
+                                <svg class="w-5 h-5 text-marca-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m7-7l7 7M5 10v10a2 2 0 002 2h10a2 2 0 002-2V10M9 21V15a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+                                <span class="text-sm font-medium text-gray-700">1 quarto</span>
+                            </div>
+                            <div class="flex items-center gap-2 bg-gray-50 rounded-xl px-4 py-2.5">
+                                <svg class="w-5 h-5 text-marca-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"/></svg>
+                                <span class="text-sm font-medium text-gray-700">1 banheiro</span>
+                            </div>
+                            <div class="flex items-center gap-2 bg-gray-50 rounded-xl px-4 py-2.5">
+                                <svg class="w-5 h-5 text-marca-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 01-2-2V5a2 2 0 012-2h14a2 2 0 012 2v1a2 2 0 01-2 2M5 8v9a2 2 0 002 2h10a2 2 0 002-2V8"/></svg>
+                                <span class="text-sm font-medium text-gray-700">1 vaga</span>
+                            </div>
+                            <div class="flex items-center gap-2 bg-gray-50 rounded-xl px-4 py-2.5">
+                                <svg class="w-5 h-5 text-marca-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                <span class="text-sm font-medium text-gray-700">11º andar</span>
+                            </div>
+                            <div class="flex items-center gap-2 bg-gray-50 rounded-xl px-4 py-2.5">
+                                <svg class="w-5 h-5 text-marca-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                <span class="text-sm font-medium text-gray-700"> Disponível desde Jan/2025</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Descrição -->
+                    <div class="card p-6 mb-6">
+                        <h2 class="font-display text-xl font-bold text-gray-900 mb-3">Descrição</h2>
+                        <p class="text-gray-600 font-body leading-relaxed mb-4">
+                            Excelente kitnet mobiliada localizada no coração dos Jardins, uma das regiões mais valorizadas de São Paulo. O imóvel está no 11º andar de um prédio moderno com portaria 24 horas, elevador e academia completa. A kitnet possui 28 m² bem distribuídos, com quarto, cozinha americana equipada, banheiro privativo com box e 1 vaga de garagem.
+                        </p>
+                        <p class="text-gray-600 font-body leading-relaxed mb-4">
+                            A região oferece fácil acesso a metrô, supermercados, restaurantes, padarias e parques. Próximo à Avenida Paulista e à Rua Augusta, com toda a infraestrutura de comércio e serviços que a região oferece. O prédio conta com piscina no terraço, salão de festas e churrasqueira.
+                        </p>
+                        <p class="text-gray-600 font-body leading-relaxed">
+                            Ideal para profissionais ou estudantes que buscam conforto e localização privilegiada. Contrato mínimo de 12 meses. Aceita-se seguro fiança, caução ou fiador com imóvel próprio em SP.
+                        </p>
+                    </div>
+
+                    <!-- Comodidades -->
+                    <div class="card p-6 mb-6">
+                        <h2 class="font-display text-xl font-bold text-gray-900 mb-4">Comodidades</h2>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="lista-comodidades">
+                            <button onclick="detalhes_do_imovel_toggleComodidade(this)" class="comodidade-btn flex items-center gap-3 p-3 rounded-xl border-2 border-gray-100 hover:border-marca-200 bg-gray-50/50 hover:bg-marca-50/50 transition-all text-left">
+                                <svg class="w-6 h-6 text-marca-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                <span class="text-sm text-gray-700 font-medium">Mobiliado</span>
+                            </button>
+                            <button onclick="detalhes_do_imovel_toggleComodidade(this)" class="comodidade-btn flex items-center gap-3 p-3 rounded-xl border-2 border-gray-100 hover:border-marca-200 bg-gray-50/50 hover:bg-marca-50/50 transition-all text-left">
+                                <svg class="w-6 h-6 text-marca-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/></svg>
+                                <span class="text-sm text-gray-700 font-medium">Internet inclusa</span>
+                            </button>
+                            <button onclick="detalhes_do_imovel_toggleComodidade(this)" class="comodidade-btn flex items-center gap-3 p-3 rounded-xl border-2 border-gray-100 hover:border-marca-200 bg-gray-50/50 hover:bg-marca-50/50 transition-all text-left">
+                                <svg class="w-6 h-6 text-marca-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                                <span class="text-sm text-gray-700 font-medium">Lavanderia compartilhada</span>
+                            </button>
+                            <button onclick="detalhes_do_imovel_toggleComodidade(this)" class="comodidade-btn flex items-center gap-3 p-3 rounded-xl border-2 border-gray-100 hover:border-marca-200 bg-gray-50/50 hover:bg-marca-50/50 transition-all text-left">
+                                <svg class="w-6 h-6 text-marca-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                                <span class="text-sm text-gray-700 font-medium">Academia</span>
+                            </button>
+                            <button onclick="detalhes_do_imovel_toggleComodidade(this)" class="comodidade-btn flex items-center gap-3 p-3 rounded-xl border-2 border-gray-100 hover:border-marca-200 bg-gray-50/50 hover:bg-marca-50/50 transition-all text-left">
+                                <svg class="w-6 h-6 text-marca-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"/></svg>
+                                <span class="text-sm text-gray-700 font-medium">Ar-condicionado</span>
+                            </button>
+                            <button onclick="detalhes_do_imovel_toggleComodidade(this)" class="comodidade-btn flex items-center gap-3 p-3 rounded-xl border-2 border-gray-100 hover:border-marca-200 bg-gray-50/50 hover:bg-marca-50/50 transition-all text-left">
+                                <svg class="w-6 h-6 text-marca-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                                <span class="text-sm text-gray-700 font-medium">Portaria 24h</span>
+                            </button>
+                            <button onclick="detalhes_do_imovel_toggleComodidade(this)" class="comodidade-btn flex items-center gap-3 p-3 rounded-xl border-2 border-gray-100 hover:border-marca-200 bg-gray-50/50 hover:bg-marca-50/50 transition-all text-left">
+                                <svg class="w-6 h-6 text-marca-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                <span class="text-sm text-gray-700 font-medium">Elevador</span>
+                            </button>
+                            <button onclick="detalhes_do_imovel_toggleComodidade(this)" class="comodidade-btn flex items-center gap-3 p-3 rounded-xl border-2 border-gray-100 hover:border-marca-200 bg-gray-50/50 hover:bg-marca-50/50 transition-all text-left">
+                                <svg class="w-6 h-6 text-marca-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/></svg>
+                                <span class="text-sm text-gray-700 font-medium">Piscina</span>
+                            </button>
+                            <button onclick="detalhes_do_imovel_toggleComodidade(this)" class="comodidade-btn flex items-center gap-3 p-3 rounded-xl border-2 border-gray-100 hover:border-marca-200 bg-gray-50/50 hover:bg-marca-50/50 transition-all text-left">
+                                <svg class="w-6 h-6 text-marca-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243A8 8 0 1117.657 16.657z"/><circle cx="12" cy="11" r="1.5" fill="currentColor"/></svg>
+                                <span class="text-sm text-gray-700 font-medium">Próximo ao metrô</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mapa -->
+                    <div class="card p-6 mb-6">
+                        <h2 class="font-display text-xl font-bold text-gray-900 mb-3">Localização</h2>
+                        <p class="text-gray-500 text-sm mb-4 font-body">Rua Augusta, 1200 — Jardins, São Paulo — SP, 01413-000</p>
+                        <div class="w-full h-[300px] rounded-xl overflow-hidden border border-gray-200 bg-gray-100">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.0976951333286!2d-46.6582190850216!3d-23.56134956760417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0x4e2f32756c94c4c!2sRua%20Augusta%2C%201200%20-%20Jardins%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1700000000000" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Documentos -->
+                    <div class="card p-6 mb-6">
+                        <h2 class="font-display text-xl font-bold text-gray-900 mb-4">Documentos do Imóvel</h2>
+                        <div class="flex flex-wrap gap-3">
+                            <button onclick="detalhes_do_imovel_abrirDocumento('matricula')" class="flex items-center gap-3 px-5 py-3 rounded-xl border-2 border-gray-200 hover:border-marca-300 bg-gray-50 hover:bg-marca-50 transition-all active:scale-95 group">
+                                <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-sm font-semibold text-gray-800 group-hover:text-marca-700 transition-colors">Matrícula do Imóvel</p>
+                                    <p class="text-xs text-gray-500">Registro em cartório — PDF</p>
+                                </div>
+                                <svg class="w-4 h-4 text-gray-400 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            </button>
+                            <button onclick="detalhes_do_imovel_abrirDocumento('iptu')" class="flex items-center gap-3 px-5 py-3 rounded-xl border-2 border-gray-200 hover:border-marca-300 bg-gray-50 hover:bg-marca-50 transition-all active:scale-95 group">
+                                <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-sm font-semibold text-gray-800 group-hover:text-marca-700 transition-colors">Comprovante IPTU 2025</p>
+                                    <p class="text-xs text-gray-500">Prefeitura de São Paulo — PDF</p>
+                                </div>
+                                <svg class="w-4 h-4 text-gray-400 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Avaliações -->
+                    <div class="card p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="font-display text-xl font-bold text-gray-900">Avaliações dos Inquilinos</h2>
+                            <div class="flex items-center gap-2">
+                                <div class="flex items-center gap-0.5">
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                    <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                </div>
+                                <span class="text-sm font-semibold text-gray-700">4.7</span>
+                                <span class="text-sm text-gray-400">(23 avaliações)</span>
+                            </div>
+                        </div>
+                        <div class="space-y-5">
+                            <div class="flex gap-4 pb-5 border-b border-gray-100">
+                                <div class="w-11 h-11 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-sm font-bold text-blue-600">MR</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <p class="font-semibold text-gray-800 text-sm">Marina Ribeiro</p>
+                                        <span class="text-xs text-gray-400">há 2 semanas</span>
+                                    </div>
+                                    <div class="flex items-center gap-0.5 mb-2">
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                    </div>
+                                    <p class="text-sm text-gray-600 leading-relaxed">Imóvel excelente! A localização é perfeita, tudo muito perto. O prédio é bem cuidado e o apartamento estava impecável na mudança. Recomendo!</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4 pb-5 border-b border-gray-100">
+                                <div class="w-11 h-11 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-sm font-bold text-emerald-600">PS</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <p class="font-semibold text-gray-800 text-sm">Pedro Santos</p>
+                                        <span class="text-xs text-gray-400">há 1 mês</span>
+                                    </div>
+                                    <div class="flex items-center gap-0.5 mb-2">
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 text-gray-300 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                    </div>
+                                    <p class="text-sm text-gray-600 leading-relaxed">Ótima kitnet para quem está sozinho. O condomínio com academia é um diferencial. Só senti falta de um pouco mais de espaço no armário.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4 pb-5 border-b border-gray-100">
+                                <div class="w-11 h-11 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-sm font-bold text-purple-600">AC</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <p class="font-semibold text-gray-800 text-sm">Ana Carolina Lima</p>
+                                        <span class="text-xs text-gray-400">há 3 meses</span>
+                                    </div>
+                                    <div class="flex items-center gap-0.5 mb-2">
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                    </div>
+                                    <p class="text-sm text-gray-600 leading-relaxed">Mudei há 6 meses e estou muito satisfeita. A cozinha equipada facilitou muito a vida. O condomínio é bem organizado e o síndico é super atencioso. Recomendo demais!</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-4">
+                                <div class="w-11 h-11 rounded-full bg-orange-100 flex items-center justify-center flex-shrink-0">
+                                    <span class="text-sm font-bold text-orange-600">RF</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <p class="font-semibold text-gray-800 text-sm">Rafael Ferreira</p>
+                                        <span class="text-xs text-gray-400">há 5 meses</span>
+                                    </div>
+                                    <div class="flex items-center gap-0.5 mb-2">
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                        <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                    </div>
+                                    <p class="text-sm text-gray-600 leading-relaxed">Melhor custo-benefício da região. O internet inclusa é um grande diferencial. O dono foi super transparente desde o começo. Estou há 8 meses e zero problemas.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Direita -->
+                <div class="w-full lg:w-[360px] flex-shrink-0 space-y-6">
+                    <!-- Card de Contato -->
+                    <div class="card p-6 sticky top-24">
+                        <div class="flex items-center gap-3 mb-4 pb-4 border-b border-gray-100">
+                            <div class="w-12 h-12 rounded-full bg-marca-100 flex items-center justify-center">
+                                <span class="text-lg font-bold text-marca-700">CA</span>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-gray-800">Carlos Andrade</p>
+                                <p class="text-xs text-gray-500">Proprietário</p>
+                                <div class="flex items-center gap-0.5 mt-0.5">
+                                    <svg class="w-3.5 h-3.5 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                                    <span class="text-xs text-gray-600 font-medium">4.9 (18 avaliações)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-3 mb-4">
+                            <div class="flex items-center gap-2 text-sm text-gray-600">
+                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                Responde em até 2 horas
+                            </div>
+                            <div class="flex items-center gap-2 text-sm text-gray-600">
+                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                                Proprietário verificado
+                            </div>
+                            <div class="flex items-center gap-2 text-sm text-gray-600">
+                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                Disponível para visitas
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <button onclick="mostrarTela('agendar-visita')" class="btn btn-primary w-full py-3.5 rounded-xl font-semibold text-base flex items-center justify-center gap-2 active:scale-95 transition-transform">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                Agendar Visita
+                            </button>
+                            <button onclick="detalhes_do_imovel_abrirChat()" class="btn w-full py-3.5 rounded-xl font-semibold text-base border-2 border-marca-200 text-marca-700 hover:bg-marca-50 flex items-center justify-center gap-2 active:scale-95 transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                                Conversar com Proprietário
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Resumo de Custos -->
+                    <div class="card p-6">
+                        <h3 class="font-display text-lg font-bold text-gray-900 mb-4">Resumo de Custos Mensais</h3>
+                        <div class="space-y-3 mb-4">
+                            <div class="flex justify-between items-center py-2">
+                                <span class="text-sm text-gray-600">Aluguel</span>
+                                <span class="text-sm font-semibold text-gray-800">R$ 2.100,00</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="text-sm text-gray-600">Condomínio</span>
+                                <span class="text-sm font-semibold text-gray-800">R$ 380,00</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="text-sm text-gray-600">IPTU</span>
+                                <span class="text-sm font-semibold text-gray-800">R$ 95,00</span>
+                            </div>
+                            <div class="border-t-2 border-dashed border-gray-200 pt-3 flex justify-between items-center">
+                                <span class="text-sm font-bold text-gray-800">Total estimado</span>
+                                <span class="text-lg font-bold text-marca-700">R$ 2.575,00</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-gray-400">*Valores aproximados. Consulte o proprietário para valores atualizados.</p>
+                    </div>
+
+                    <!-- Informações Rápidas -->
+                    <div class="card p-6">
+                        <h3 class="font-display text-lg font-bold text-gray-900 mb-4">Informações do Contrato</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center py-2">
+                                <span class="text-sm text-gray-600">Tipo de contrato</span>
+                                <span class="badge bg-gray-100 text-gray-700 text-xs font-semibold px-3 py-1 rounded-full">Residencial</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="text-sm text-gray-600">Duração mínima</span>
+                                <span class="text-sm font-semibold text-gray-800">12 meses</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="text-sm text-gray-600">Garantia</span>
+                                <span class="text-sm font-semibold text-gray-800">Fiador / Caução</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="text-sm text-gray-600">Animais</span>
+                                <span class="badge bg-gray-100 text-gray-500 text-xs font-semibold px-3 py-1 rounded-full">Não permitido</span>
+                            </div>
+                            <div class="flex justify-between items-center py-2">
+                                <span class="text-sm text-gray-600">Depósito</span>
+                                <span class="text-sm font-semibold text-gray-800">1 mês (caução)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            (function() {
+                let slideAtual = 0;
+                const totalSlides = 5;
+                let autoplayInterval;
+
+                function atualizarCarrossel() {
+                    const container = document.getElementById('carrossel-container');
+                    if (!container) return;
+                    container.style.transform = 'translateX(-' + (slideAtual * 100) + '%)';
+                    const contador = document.getElementById('carrossel-contador');
+                    if (contador) contador.textContent = (slideAtual + 1) + ' / ' + totalSlides;
+                    const dots = document.querySelectorAll('#carrossel-dots .carrossel-dot');
+                    dots.forEach(function(d, i) {
+                        d.classList.toggle('bg-marca-600', i === slideAtual);
+                        d.classList.toggle('bg-white/60', i !== slideAtual);
+                    });
+                }
+
+                window.detalhes_do_imovel_carrosselProximo = function() {
+                    slideAtual = (slideAtual + 1) % totalSlides;
+                    atualizarCarrossel();
+                    resetarAutoplay();
+                };
+
+                window.detalhes_do_imovel_carrosselAnterior = function() {
+                    slideAtual = (slideAtual - 1 + totalSlides) % totalSlides;
+                    atualizarCarrossel();
+                    resetarAutoplay();
+                };
+
+                function resetarAutoplay() {
+                    clearInterval(autoplayInterval);
+                    autoplayInterval = setInterval(function() {
+                        slideAtual = (slideAtual + 1) % totalSlides;
+                        atualizarCarrossel();
+                    }, 5000);
+                }
+
+                function iniciarAutoplay() {
+                    autoplayInterval = setInterval(function() {
+                        slideAtual = (slideAtual + 1) % totalSlides;
+                        atualizarCarrossel();
+                    }, 5000);
+                }
+
+                window.detalhes_do_imovel_toggleFavorito = function() {
+                    const btn = document.getElementById('btn-favorito');
+                    const icone = document.getElementById('icone-favorito');
+                    const texto = document.getElementById('texto-favorito');
+                    if (btn.dataset.favoritado === 'true') {
+                        btn.dataset.favoritado = 'false';
+                        icone.setAttribute('fill', 'none');
+                        btn.classList.remove('border-red-200', 'text-red-500', 'bg-red-50');
+                        btn.classList.add('border-gray-200', 'text-gray-600');
+                        texto.textContent = 'Salvar';
+                        toast('Removido dos favoritos', 'info');
+                    } else {
+                        btn.dataset.favoritado = 'true';
+                        icone.setAttribute('fill', 'currentColor');
+                        btn.classList.remove('border-gray-200', 'text-gray-600');
+                        btn.classList.add('border-red-200', 'text-red-500', 'bg-red-50');
+                        texto.textContent = 'Favoritado';
+                        toast('Salvo nos favoritos!', 'ok');
+                    }
+                };
+
+                window.detalhes_do_imovel_compartilhar = function() {
+                    if (navigator.share) {
+                        navigator.share({ title: 'Kitnet Jardins — R. Augusta, 1200', text: 'Confira esta kitnete mobiliada nos Jardins, São Paulo!', url: window.location.href });
+                    } else {
+                        navigator.clipboard.writeText(window.location.href).then(function() {
+                            toast('Link copiado para a área de transferência!', 'ok');
+                        });
+                    }
+                };
+
+                window.detalhes_do_imovel_toggleComodidade = function(btn) {
+                    const isActive = btn.dataset.ativo === 'true';
+                    if (isActive) {
+                        btn.dataset.ativo = 'false';
+                        btn.classList.remove('border-marca-300', 'bg-marca-50', 'bg-marca-100');
+                        btn.classList.add('border-gray-100', 'bg-gray-50/50');
+                        btn.querySelector('svg').classList.remove('text-green-600');
+                        btn.querySelector('svg').classList.add('text-marca-500');
+                        btn.querySelector('svg').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>';
+                    } else {
+                        btn.dataset.ativo = 'true';
+                        btn.classList.add('border-marca-300', 'bg-marca-50', 'bg-marca-100');
+                        btn.classList.remove('border-gray-100', 'bg-gray-50/50');
+                        btn.querySelector('svg').classList.remove('text-marca-500');
+                        btn.querySelector('svg').classList.add('text-green-600');
+                        btn.querySelector('svg').innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>';
+                    }
+                };
+
+                window.detalhes_do_imovel_abrirDocumento = function(tipo) {
+                    const nomes = { matricula: 'Matrícula do Imóvel', iptu: 'Comprovante IPTU 2025' };
+                    const html = '<div class="text-center py-8"><div class="w-16 h-16 bg-marca-100 rounded-full flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-marca-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg></div><p class="text-gray-700 font-medium mb-2">' + nomes[tipo] + '</p><p class="text-sm text-gray-500 mb-4">Documento PDF disponível para download</p><button onclick="toast(\'Download iniciado!\', \'ok\'); fecharModal();" class="btn btn-primary px-6 py-2.5 rounded-xl font-semibold">Download PDF</button></div>';
+                    abrirModal(html, nomes[tipo]);
+                };
+
+                window.detalhes_do_imovel_abrirChat = function() {
+                    mostrarTela('notificacoes');
+                    toast('Conversa iniciada com Carlos Andrade', 'ok');
+                };
+
+                function criarDots() {
+                    const container = document.getElementById('carrossel-dots');
+                    if (!container) return;
+                    for (let i = 0; i < totalSlides; i++) {
+                        const dot = document.createElement('button');
+                        dot.className = 'carrossel-dot w-2.5 h-2.5 rounded-full transition-all duration-300 ' + (i === 0 ? 'bg-marca-600 w-8' : 'bg-white/60');
+                        dot.onclick = function() { slideAtual = i; atualizarCarrossel(); resetarAutoplay(); };
+                        container.appendChild(dot);
+                    }
+                }
+
+                function init() {
+                    criarDots();
+                    iniciarAutoplay();
+                    document.querySelectorAll('.comodidade-btn').forEach(function(btn) { btn.dataset.ativo = 'true'; });
+                }
+
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', init);
+                } else {
+                    init();
+                }
+            })();
+        </script>
+    </section>
+
     <!-- TELAS -->
     </main>
   </div>
