@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KitLar — Aluguel de Kitnet</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,400&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            marca: {
+              50: '#fdf5f0', 100: '#fbead9', 200: '#f6d0b0',
+              300: '#efad82', 400: '#e6824f', 500: '#d96a32',
+              600: '#c25425', 700: '#a1401e', 800: '#82371c',
+              900: '#6b311a',
+            },
+            destaque: {
+              50: '#f2f7f0', 100: '#e2ecd9', 200: '#c3d7b5',
+              300: '#9ab88a', 400: '#729864', 500: '#587d4e',
+              600: '#46633e', 700: '#394f35', 800: '#30402e',
+              900: '#293628',
+            },
+            pedra: {
+              50: '#faf8f6', 100: '#f4f0eb', 200: '#ebe4db',
+              300: '#ddd3c7', 400: '#c9baab', 500: '#b3a18c',
+              600: '#a08b73', 700: '#87735e', 800: '#706350',
+              900: '#5a5247',
+            },
+            arenito: {
+              50: '#fdfcfb', 100: '#f9f6f2', 200: '#f2ebe3',
+              300: '#e8ddd2', 400: '#d9caba', 500: '#c9b5a1',
+            },
+          },
+          fontFamily: {
+            display: ['"Bricolage Grotesque"', 'Georgia', 'serif'],
+            body: ['"Nunito Sans"', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            'marca': '0 2px 12px rgba(217, 106, 50, 0.12)',
+            'marca-md': '0 4px 24px rgba(217, 106, 50, 0.16)',
+            'marca-lg': '0 8px 40px rgba(217, 106, 50, 0.22)',
+            'card': '0 1px 6px rgba(0, 0, 0, 0.05), 0 6px 20px rgba(0, 0, 0, 0.04)',
+            'card-hover': '0 2px 10px rgba(0, 0, 0, 0.08), 0 10px 30px rgba(0, 0, 0, 0.06)',
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateX(100%) scale(0.92); }
+      to { opacity: 1; transform: translateX(0) scale(1); }
+    }
+    @keyframes toastOut {
+      from { opacity: 1; transform: translateX(0) scale(1); }
+      to { opacity: 0; transform: translateX(100%) scale(0.92); }
+    }
+    @keyframes pulseDoot {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+    [data-tela]:not(.hidden) {
+      animation: fadeSlideIn 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    .ativo {
+      background-color: #fbead9;
+      color: #d96a32;
+    }
+    .ativo::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      bottom: 6px;
+      width: 3px;
+      border-radius: 0 3px 3px 0;
+      background-color: #d96a32;
+    }
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #ddd3c7; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #c9baab; }
+    :focus-visible { outline: 2px solid #d96a32; outline-offset: 2px; border-radius: 4px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 18px; border-radius: 10px;
+      font-weight: 600; font-size: 14px;
+      transition: all 0.2s ease; cursor: pointer; border: none;
+    }
+    .btn-primary { background: #d96a32; color: white; }
+    .btn-primary:hover { background: #c25425; transform: translateY(-1px); box-shadow: 0 4px 14px rgba(217,106,50,0.3); }
+    .btn-secondary { background: #f4f0eb; color: #5a5247; }
+    .btn-secondary:hover { background: #ddd3c7; }
+    .btn-accent { background: #46633e; color: white; }
+    .btn-accent:hover { background: #394f35; }
+    .btn-ghost { background: transparent; color: #87735e; }
+    .btn-ghost:hover { background: #f4f0eb; }
+    .card {
+      background: white; border-radius: 14px;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.05), 0 6px 20px rgba(0,0,0,0.04);
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
+    }
+    .card-interactive:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.08), 0 10px 30px rgba(0,0,0,0.06); transform: translateY(-2px); }
+    .badge {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 3px 10px; border-radius: 20px;
+      font-size: 12px; font-weight: 600;
+    }
+  </style>
+</head>
+<body class="font-body bg-arenito-50 text-pedra-800 h-screen flex overflow-hidden">
+
+  <!-- Sidebar Lateral -->
+  <aside class="w-[260px] bg-white border-r border-pedra-200 flex flex-col h-screen shrink-0 z-30">
+    <div class="h-[69px] px-5 flex items-center gap-3 border-b border-pedra-100">
+      <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+        <path d="M20 6L8 16h4v14h4V21h8v9h4L20 6z" fill="#d96a32"/>
+        <rect x="17" y="25" width="6" height="9" rx="1" fill="#fff" opacity="0.9"/>
+      </svg>
+      <div>
+        <span class="font-display font-800 text-xl text-pedra-900 leading-none">KitLar</span>
+        <span class="block text-[10px] text-pedra-400 font-body tracking-wide mt-0.5">Aluguel de Kitnet</span>
+      </div>
+    </div>
+
+    <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1">
+      <div class="px-2 mb-2 text-[10px] font-bold text-pedra-400 uppercase tracking-[0.12em]">Explorar</div>
+      <button data-nav="home" onclick="mostrarTela('home')" class="ativo relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-pedra-600 hover:bg-arenito-100 transition-colors">
+        <svg class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0h4"/></svg>
+        Home
+      </button>
+      <button data-nav="resultados-da-busca" onclick="mostrarTela('resultados-da-busca')" class="relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-pedra-600 hover:bg-arenito-100 transition-colors">
+        <svg class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        Resultados da Busca
+      </button>
+      <button data-nav="detalhes-do-imovel" onclick="mostrarTela('detalhes-do-imovel')" class="relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-pedra-600 hover:bg-arenito-100 transition-colors">
+        <svg class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Detalhes do Imóvel
+      </button>
+      <button data-nav="agendar-visita" onclick="mostrarTela('agendar-visita')" class="relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-pedra-600 hover:bg-arenito-100 transition-colors">
+        <svg class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Agendar Visita
+      </button>
+
+      <div class="px-2 mt-5 mb-2 text-[10px] font-bold text-pedra-400 uppercase tracking-[0.12em]">Proprietário</div>
+      <button data-nav="painel-do-proprietario" onclick="mostrarTela('painel-do-proprietario')" class="relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-pedra-600 hover:bg-arenito-100 transition-colors">
+        <svg class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Painel do Proprietário
+      </button>
+      <button data-nav="cadastrar-imovel" onclick="mostrarTela('cadastrar-imovel')" class="relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-pedra-600 hover:bg-arenito-100 transition-colors">
+        <svg class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Cadastrar Imóvel
+      </button>
+
+      <div class="px-2 mt-5 mb-2 text-[10px] font-bold text-pedra-400 uppercase tracking-[0.12em]">Minha Conta</div>
+      <button data-nav="meus-alugueis" onclick="mostrarTela('meus-alugueis')" class="relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-pedra-600 hover:bg-arenito-100 transition-colors">
+        <svg class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="15" cy="8" r="3"/><path d="M5 20c0-4 4-6 8-6h2c4 0 8 2 8 6"/></svg>
+        Meus Aluguéis
+      </button>
+      <button data-nav="favoritos" onclick="mostrarTela('favoritos')" class="relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-pedra-600 hover:bg-arenito-100 transition-colors">
+        <svg class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        Favoritos
+      </button>
+      <button data-nav="perfil-da-conta" onclick="mostrarTela('perfil-da-conta')" class="relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-pedra-600 hover:bg-arenito-100 transition-colors">
+        <svg class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-7 8-7s8 3 8 7"/></svg>
+        Perfil da Conta
+      </button>
+      <button data-nav="notificacoes" onclick="mostrarTela('notificacoes')" class="relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-pedra-600 hover:bg-arenito-100 transition-colors">
+        <svg class="w-[18px] h-[18px] shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        Notificações
+        <span class="ml-auto bg-marca-500 text-white text-[10px] font-bold px-2 py-[2px] rounded-full leading-none">3</span>
+      </button>
+    </nav>
+
+    <div class="p-3 border-t border-pedra-100">
+      <div class="flex items-center gap-3 px-2 py-2">
+        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-marca-300 to-marca-500 flex items-center justify-center text-white text-xs font-bold shrink-0">MO</div>
+        <div class="min-w-0">
+          <p class="text-sm font-semibold text-pedra-800 truncate">Maria Oliveira</p>
+          <p class="text-xs text-pedra-400 truncate">Inquilina</p>
+        </div>
+        <button onclick="mostrarTela('perfil-da-conta')" class="ml-auto p-1.5 rounded-lg text-pedra-400 hover:text-pedra-600 hover:bg-arenito-100 transition-colors" aria-label="Configurações da conta">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 01-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Conteúdo Principal -->
+  <div class="flex-1 flex flex-col h-screen overflow-hidden">
+    <header class="h-[69px] bg-white border-b border-pedra-200 flex items-center px-7 gap-4 shrink-0 z-20">
+      <div class="flex-1 max-w-xl relative">
+        <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-pedra-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="search" placeholder="Buscar kitnet, bairro, cidade…" class="w-full pl-10 pr-4 py-2.5 bg-arenito-50 border border-pedra-200 rounded-xl text-sm text-pedra-700 placeholder-pedra-400 focus:outline-none focus:ring-2 focus:ring-marca-400 focus:border-transparent transition-all">
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="mostrarTela('notificacoes')" class="relative p-2.5 rounded-xl text-pedra-500 hover:text-marca-600 hover:bg-arenito-100 transition-colors" aria-label="Notificações">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <span class="absolute -top-[2px] -right-[2px] w-4 h-4 bg-marca-500 text-white text-[9px] font-bold rounded-full flex items-center justify-center border-2 border-white">3</span>
+        </button>
+        <button onclick="mostrarTela('perfil-da-conta')" class="w-9 h-9 rounded-full bg-gradient-to-br from-marca-300 to-marca-500 flex items-center justify-center text-white text-sm font-bold hover:shadow-marca transition-all cursor-pointer ml-1">
+          MO
+        </button>
+      </div>
+    </header>
+
+    <main class="flex-1 overflow-y-auto">
+      <!-- TELAS -->
+    </main>
+  </div>
+
+  <!-- Container de Toasts -->
+  <div id="toast-container" class="fixed top-5 right-5 z-[100] flex flex-col gap-3 w-[340px] pointer-events-none"></div>
+
+  <!-- Modal Genérico -->
+  <div id="modal" class="fixed inset-0 z-[90] hidden">
+    <div id="modal-fundo" class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="fecharModal()"></div>
+    <div class="flex items-center justify-center min-h-screen p-6">
+      <div id="modal-card" class="bg-white rounded-2xl shadow-2xl w-full max-w-lg max-h-[80vh] flex flex-col relative z-10">
+        <div class="flex items-center justify-between px-6 py-4 border-b border-pedra-100">
+          <h3 id="modal-titulo" class="font-display font-700 text-lg text-pedra-900"></h3>
+          <button onclick="fecharModal()" class="p-1.5 rounded-lg text-pedra-400 hover:text-pedra-700 hover:bg-pedra-100 transition-colors" aria-label="Fechar">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div id="modal-corpo" class="px-6 py-5 overflow-y-auto"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function mostrarTela(id) {
+      document.querySelectorAll('[data-tela]').forEach(function (s) {
+        s.classList.toggle('hidden', s.dataset.tela !== id);
+      });
+      document.querySelectorAll('[data-nav]').forEach(function (b) {
+        b.classList.toggle('ativo', b.dataset.nav === id);
+      });
+      window.scrollTo({ top: 0 });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      mostrarTela('home');
+    });
+
+    function toast(mensagem, tipo) {
+      var container = document.getElementById('toast-container');
+      var cores = { ok: { bg: 'bg-destaque-600', border: 'border-destaque-500', icone: 'M5 13l4 4L19 7' }, erro: { bg: 'bg-red-600', border: 'border-red-500', icone: 'M6 18L18 6M6 6l12 12' }, info: { bg: 'bg-marca-600', border: 'border-marca-500', icone: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z' } };
+      var c = cores[tipo] || cores.info;
+      var el = document.createElement('div');
+      el.className = 'pointer-events-auto flex items-center gap-3 px-4 py-3.5 rounded-xl shadow-lg border ' + c.bg + ' border-white/10 text-white text-sm font-medium';
+      el.style.animation = 'toastIn 0.4s cubic-bezier(0.22,0.61,0.36,1)';
+      el.innerHTML = '<svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="' + c.icone + '"/></svg>' + mensagem;
+      container.appendChild(el);
+      setTimeout(function () {
+        el.style.animation = 'toastOut 0.35s ease forwards';
+        setTimeout(function () { el.remove(); }, 350);
+      }, 3000);
+    }
+
+    function abrirModal(html, titulo) {
+      document.getElementById('modal-titulo').textContent = titulo;
+      document.getElementById('modal-corpo').innerHTML = html;
+      document.getElementById('modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function fecharModal() {
+      document.getElementById('modal').classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') fecharModal();
+    });
+
+    function brl(valor) {
+      return 'R$ ' + Number(valor).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function dataBR(iso) {
+      var d = new Date(iso + 'T00:00:00');
+      var dia = String(d.getDate()).padStart(2, '0');
+      var mes = String(d.getMonth() + 1).padStart(2, '0');
+      var ano = d.getFullYear();
+      return dia + '/' + mes + '/' + ano;
+    }
+  </script>
+</body>
+</html>
