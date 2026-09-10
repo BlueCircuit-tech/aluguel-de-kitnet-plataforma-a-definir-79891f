@@ -1985,6 +1985,632 @@ renderFiltros();
 </script>
 <style>.scrollbar-thin::-webkit-scrollbar{width:4px}.scrollbar-thin::-webkit-scrollbar-track{background:transparent}.scrollbar-thin::-webkit-scrollbar-thumb{background:#d1d5db;border-radius:2px}.scrollbar-thin::-webkit-scrollbar-thumb:hover{background:#9ca3af}</style>
 
+    <section data-tela="cadastrar-imovel" class="hidden">
+  <div class="max-w-3xl mx-auto">
+    <div class="mb-8">
+      <button onclick="mostrarTela('painel-do-proprietario')" class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-gray-800 transition-colors mb-4">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        Voltar ao Painel
+      </button>
+      <h1 class="font-display text-3xl font-bold text-gray-900">Cadastrar Imóvel</h1>
+      <p class="text-gray-500 mt-1">Preencha as informações abaixo para publicar seu imóvel na plataforma. Após revisão, ele ficará disponível para interessados.</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+      <div class="px-8 pt-8 pb-4">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-sm font-medium text-gray-500">Etapa <span id="etapa-atual">1</span> de 5</span>
+          <span class="text-sm text-gray-400" id="etapa-nome">Dados Básicos</span>
+        </div>
+        <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+          <div id="barra-progresso" class="h-full bg-marca-600 rounded-full transition-all duration-500 ease-out" style="width:20%"></div>
+        </div>
+      </div>
+
+      <div class="h-px bg-gray-100"></div>
+
+      <form id="form-cadastro" onsubmit="return false" class="px-8 py-6">
+
+        <div id="step-1" class="etapa-form">
+          <h2 class="font-display text-xl font-semibold text-gray-900 mb-1">Dados Básicos</h2>
+          <p class="text-sm text-gray-500 mb-6">Informe o tipo de imóvel e o endereço completo.</p>
+          <div class="space-y-5">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">Tipo de Imóvel <span class="text-red-400">*</span></label>
+              <div class="grid grid-cols-3 gap-3">
+                <label class="tipo-opcao cursor-pointer">
+                  <input type="radio" name="tipo_imovel" value="kitnet" class="hidden peer" checked>
+                  <div class="border-2 border-gray-200 peer-checked:border-marca-500 peer-checked:bg-marca-50 rounded-xl p-4 text-center transition-all hover:border-gray-300">
+                    <svg class="w-8 h-8 mx-auto mb-2 text-gray-400 peer-checked:text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    <span class="text-sm font-medium text-gray-700">Kitnet</span>
+                  </div>
+                </label>
+                <label class="tipo-opcao cursor-pointer">
+                  <input type="radio" name="tipo_imovel" value="apartamento" class="hidden peer">
+                  <div class="border-2 border-gray-200 peer-checked:border-marca-500 peer-checked:bg-marca-50 rounded-xl p-4 text-center transition-all hover:border-gray-300">
+                    <svg class="w-8 h-8 mx-auto mb-2 text-gray-400 peer-checked:text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                    <span class="text-sm font-medium text-gray-700">Apartamento</span>
+                  </div>
+                </label>
+                <label class="tipo-opcao cursor-pointer">
+                  <input type="radio" name="tipo_imovel" value="casa" class="hidden peer">
+                  <div class="border-2 border-gray-200 peer-checked:border-marca-500 peer-checked:bg-marca-50 rounded-xl p-4 text-center transition-all hover:border-gray-300">
+                    <svg class="w-8 h-8 mx-auto mb-2 text-gray-400 peer-checked:text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l9-9 9 9M4 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    <span class="text-sm font-medium text-gray-700">Casa</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">CEP <span class="text-red-400">*</span></label>
+                <div class="relative">
+                  <input type="text" id="input-cep" placeholder="00000-000" maxlength="9" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent transition-all" oninput="cadastrar_imovel_mascaraCep(this)" onblur="cadastrar_imovel_buscarCep()">
+                  <button type="button" onclick="cadastrar_imovel_buscarCep()" class="absolute right-2 top-1/2 -translate-y-1/2 p-1.5 text-gray-400 hover:text-marca-600 transition-colors" title="Buscar CEP">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                  </button>
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Número <span class="text-red-400">*</span></label>
+                <input type="text" id="input-numero" placeholder="123" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent transition-all">
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">Logradouro</label>
+              <input type="text" id="input-logradouro" placeholder="Rua, avenida..." class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm bg-gray-50 text-gray-500 focus:outline-none" readonly>
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Bairro</label>
+                <input type="text" id="input-bairro" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm bg-gray-50 text-gray-500 focus:outline-none" readonly>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Cidade</label>
+                <input type="text" id="input-cidade" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm bg-gray-50 text-gray-500 focus:outline-none" readonly>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">UF</label>
+                <input type="text" id="input-uf" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm bg-gray-50 text-gray-500 focus:outline-none" readonly>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">Complemento</label>
+              <input type="text" id="input-complemento" placeholder="Apto, bloco, referência..." class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent transition-all">
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Área Útil (m²) <span class="text-red-400">*</span></label>
+                <input type="number" id="input-area" placeholder="25" min="5" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent transition-all">
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Quartos</label>
+                <select id="input-quartos" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent transition-all">
+                  <option value="0">Studio (0)</option>
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4+</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Banheiros</label>
+                <select id="input-banheiros" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent transition-all">
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3+</option>
+                </select>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Vagas de Garagem</label>
+                <select id="input-vagas" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent transition-all">
+                  <option value="0" selected>Nenhuma</option>
+                  <option value="1">1 vaga</option>
+                  <option value="2">2 vagas</option>
+                  <option value="3">3+ vagas</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Andar</label>
+                <input type="text" id="input-andar" placeholder="Ex: 3º" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent transition-all">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="step-2" class="etapa-form hidden">
+          <h2 class="font-display text-xl font-semibold text-gray-900 mb-1">Valores</h2>
+          <p class="text-sm text-gray-500 mb-6">Defina os valores do aluguel e taxas associadas.</p>
+          <div class="space-y-5">
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Valor do Aluguel (R$) <span class="text-red-400">*</span></label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">R$</span>
+                  <input type="text" id="input-aluguel" placeholder="1.200,00" class="w-full pl-12 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent transition-all" oninput="cadastrar_imovel_mascaraMoeda(this)" onblur="cadastrar_imovel_limparMoeda(this)">
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Condomínio (R$)</label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">R$</span>
+                  <input type="text" id="input-condominio" placeholder="350,00" class="w-full pl-12 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent transition-all" oninput="cadastrar_imovel_mascaraMoeda(this)" onblur="cadastrar_imovel_limparMoeda(this)">
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">IPTU (R$)</label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">R$</span>
+                  <input type="text" id="input-iptu" placeholder="85,00" class="w-full pl-12 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent transition-all" oninput="cadastrar_imovel_mascaraMoeda(this)" onblur="cadastrar_imovel_limparMoeda(this)">
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1.5">Caução</label>
+                <select id="input-caucao" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent transition-all">
+                  <option value="1">1 mês de aluguel</option>
+                  <option value="2" selected>2 meses de aluguel</option>
+                  <option value="3">3 meses de aluguel</option>
+                  <option value="0">Sem caução</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">Depósito de Garantia (R$)</label>
+              <div class="relative">
+                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm">R$</span>
+                <input type="text" id="input-deposito" placeholder="0,00" class="w-full pl-12 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent transition-all" oninput="cadastrar_imovel_mascaraMoeda(this)" onblur="cadastrar_imovel_limparMoeda(this)">
+              </div>
+            </div>
+            <div class="bg-marca-50 rounded-xl p-4">
+              <div class="flex items-center gap-2 mb-2">
+                <svg class="w-5 h-5 text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                <span class="text-sm font-medium text-marca-800">Resumo de Custos Iniciais</span>
+              </div>
+              <div id="resumo-custos" class="text-sm text-marca-700 space-y-1">
+                <p>Preencha o valor do aluguel para calcular o resumo.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="step-3" class="etapa-form hidden">
+          <h2 class="font-display text-xl font-semibold text-gray-900 mb-1">Descrição e Comodidades</h2>
+          <p class="text-sm text-gray-500 mb-6">Conte sobre o imóvel e o que ele oferece.</p>
+          <div class="space-y-5">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">Título do Anúncio <span class="text-red-400">*</span></label>
+              <input type="text" id="input-titulo" placeholder="Ex: Kitnet aconchegante próxima ao metrô" class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent transition-all" maxlength="80">
+              <p class="text-xs text-gray-400 mt-1"><span id="titulo-contador">0</span>/80 caracteres</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1.5">Descrição <span class="text-red-400">*</span></label>
+              <textarea id="input-descricao" rows="6" placeholder="Descreva o imóvel: estado de conservação, pontos de referência, vizinhança, regras do condomínio..." class="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-marca-500 focus:border-transparent transition-all resize-y" maxlength="2000"></textarea>
+              <p class="text-xs text-gray-400 mt-1"><span id="descricao-contador">0</span>/2000 caracteres</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-3">Comodidades <span class="text-red-400">*</span></label>
+              <div class="grid grid-cols-3 gap-3" id="grid-comodidades">
+                <label class="comodidade-item cursor-pointer">
+                  <input type="checkbox" name="comodidade" value="mobiliado" class="hidden peer">
+                  <div class="border-2 border-gray-200 peer-checked:border-marca-500 peer-checked:bg-marca-50 rounded-lg p-3 text-center transition-all hover:border-gray-300">
+                    <svg class="w-5 h-5 mx-auto mb-1 text-gray-400 peer-checked:text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                    <span class="text-xs font-medium text-gray-600">Mobiliado</span>
+                  </div>
+                </label>
+                <label class="comodidade-item cursor-pointer">
+                  <input type="checkbox" name="comodidade" value="internet" class="hidden peer">
+                  <div class="border-2 border-gray-200 peer-checked:border-marca-500 peer-checked:bg-marca-50 rounded-lg p-3 text-center transition-all hover:border-gray-300">
+                    <svg class="w-5 h-5 mx-auto mb-1 text-gray-400 peer-checked:text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/></svg>
+                    <span class="text-xs font-medium text-gray-600">Internet</span>
+                  </div>
+                </label>
+                <label class="comodidade-item cursor-pointer">
+                  <input type="checkbox" name="comodidade" value="lavanderia" class="hidden peer">
+                  <div class="border-2 border-gray-200 peer-checked:border-marca-500 peer-checked:bg-marca-50 rounded-lg p-3 text-center transition-all hover:border-gray-300">
+                    <svg class="w-5 h-5 mx-auto mb-1 text-gray-400 peer-checked:text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                    <span class="text-xs font-medium text-gray-600">Lavanderia</span>
+                  </div>
+                </label>
+                <label class="comodidade-item cursor-pointer">
+                  <input type="checkbox" name="comodidade" value="academia" class="hidden peer">
+                  <div class="border-2 border-gray-200 peer-checked:border-marca-500 peer-checked:bg-marca-50 rounded-lg p-3 text-center transition-all hover:border-gray-300">
+                    <svg class="w-5 h-5 mx-auto mb-1 text-gray-400 peer-checked:text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                    <span class="text-xs font-medium text-gray-600">Academia</span>
+                  </div>
+                </label>
+                <label class="comodidade-item cursor-pointer">
+                  <input type="checkbox" name="comodidade" value="piscina" class="hidden peer">
+                  <div class="border-2 border-gray-200 peer-checked:border-marca-500 peer-checked:bg-marca-50 rounded-lg p-3 text-center transition-all hover:border-gray-300">
+                    <svg class="w-5 h-5 mx-auto mb-1 text-gray-400 peer-checked:text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                    <span class="text-xs font-medium text-gray-600">Piscina</span>
+                  </div>
+                </label>
+                <label class="comodidade-item cursor-pointer">
+                  <input type="checkbox" name="comodidade" value="pet_friendly" class="hidden peer">
+                  <div class="border-2 border-gray-200 peer-checked:border-marca-500 peer-checked:bg-marca-50 rounded-lg p-3 text-center transition-all hover:border-gray-300">
+                    <svg class="w-5 h-5 mx-auto mb-1 text-gray-400 peer-checked:text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m0 0h4.5m-4.5 0l-1-1m1 1l1-1"/></svg>
+                    <span class="text-xs font-medium text-gray-600">Pet Friendly</span>
+                  </div>
+                </label>
+                <label class="comodidade-item cursor-pointer">
+                  <input type="checkbox" name="comodidade" value="portaria_24h" class="hidden peer">
+                  <div class="border-2 border-gray-200 peer-checked:border-marca-500 peer-checked:bg-marca-50 rounded-lg p-3 text-center transition-all hover:border-gray-300">
+                    <svg class="w-5 h-5 mx-auto mb-1 text-gray-400 peer-checked:text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    <span class="text-xs font-medium text-gray-600">Portaria 24h</span>
+                  </div>
+                </label>
+                <label class="comodidade-item cursor-pointer">
+                  <input type="checkbox" name="comodidade" value="elevador" class="hidden peer">
+                  <div class="border-2 border-gray-200 peer-checked:border-marca-500 peer-checked:bg-marca-50 rounded-lg p-3 text-center transition-all hover:border-gray-300">
+                    <svg class="w-5 h-5 mx-auto mb-1 text-gray-400 peer-checked:text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
+                    <span class="text-xs font-medium text-gray-600">Elevador</span>
+                  </div>
+                </label>
+                <label class="comodidade-item cursor-pointer">
+                  <input type="checkbox" name="comodidade" value="ar_condicionado" class="hidden peer">
+                  <div class="border-2 border-gray-200 peer-checked:border-marca-500 peer-checked:bg-marca-50 rounded-lg p-3 text-center transition-all hover:border-gray-300">
+                    <svg class="w-5 h-5 mx-auto mb-1 text-gray-400 peer-checked:text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    <span class="text-xs font-medium text-gray-600">Ar Condicionado</span>
+                  </div>
+                </label>
+                <label class="comodidade-item cursor-pointer">
+                  <input type="checkbox" name="comodidade" value="sacada" class="hidden peer">
+                  <div class="border-2 border-gray-200 peer-checked:border-marca-500 peer-checked:bg-marca-50 rounded-lg p-3 text-center transition-all hover:border-gray-300">
+                    <svg class="w-5 h-5 mx-auto mb-1 text-gray-400 peer-checked:text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                    <span class="text-xs font-medium text-gray-600">Sacada / Varanda</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="step-4" class="etapa-form hidden">
+          <h2 class="font-display text-xl font-semibold text-gray-900 mb-1">Fotos e Documentos</h2>
+          <p class="text-sm text-gray-500 mb-6">Adicione fotos do imóvel e documentos que comprovem a propriedade.</p>
+          <div class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Fotos do Imóvel <span class="text-red-400">*</span> <span class="text-gray-400 font-normal">(até 20 imagens)</span></label>
+              <div id="drop-zone-fotos" class="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center cursor-pointer hover:border-marca-400 hover:bg-marca-50/50 transition-all" onclick="document.getElementById('input-fotos').click()" ondragover="event.preventDefault();this.classList.add('border-marca-500','bg-marca-50')" ondragleave="this.classList.remove('border-marca-500','bg-marca-50')" ondrop="event.preventDefault();this.classList.remove('border-marca-500','bg-marca-50');cadastrar_imovel_processarFotos(event.dataTransfer.files)">
+                <svg class="w-12 h-12 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                <p class="text-sm text-gray-500 mb-1">Arraste as fotos aqui ou <span class="text-marca-600 font-medium">clique para selecionar</span></p>
+                <p class="text-xs text-gray-400">JPG, PNG ou WEBP — máximo 5MB por imagem</p>
+                <input type="file" id="input-fotos" accept="image/jpeg,image/png,image/webp" multiple class="hidden" onchange="cadastrar_imovel_processarFotos(this.files)">
+              </div>
+              <div id="preview-fotos" class="grid grid-cols-5 gap-3 mt-4"></div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Documentos</label>
+              <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center cursor-pointer hover:border-marca-400 hover:bg-marca-50/50 transition-all" onclick="document.getElementById('input-documentos').click()">
+                <svg class="w-10 h-10 mx-auto mb-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <p class="text-sm text-gray-500">Matrícula, IPTU, comprovante de propriedade <span class="text-marca-600 font-medium">(PDF, JPG)</span></p>
+                <input type="file" id="input-documentos" accept=".pdf,image/jpeg,image/png" multiple class="hidden" onchange="cadastrar_imovel_processarDocumentos(this.files)">
+              </div>
+              <div id="lista-documentos" class="space-y-2 mt-3"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="step-5" class="etapa-form hidden">
+          <h2 class="font-display text-xl font-semibold text-gray-900 mb-1">Revisão Final</h2>
+          <p class="text-sm text-gray-500 mb-6">Confira todas as informações antes de publicar.</p>
+          <div id="revisao-conteudo" class="space-y-4"></div>
+        </div>
+
+      </form>
+
+      <div class="h-px bg-gray-100"></div>
+      <div class="px-8 py-4 flex items-center justify-between">
+        <button type="button" id="btn-anterior" onclick="cadastrar_imovel_anterior()" class="hidden px-5 py-2.5 border border-gray-200 text-gray-600 rounded-lg text-sm font-medium hover:bg-gray-50 active:scale-95 transition-all">
+          ← Anterior
+        </button>
+        <div class="flex gap-3 ml-auto">
+          <button type="button" onclick="cadastrar_imovel_confirmarCancelar()" class="px-5 py-2.5 text-gray-500 text-sm font-medium hover:text-gray-700 transition-colors">
+            Cancelar
+          </button>
+          <button type="button" id="btn-proximo" onclick="cadastrar_imovel_proximo()" class="px-6 py-2.5 bg-marca-600 text-white rounded-lg text-sm font-medium hover:bg-marca-700 active:scale-95 transition-all shadow-sm shadow-marca-200">
+            Próximo →
+          </button>
+          <button type="button" id="btn-publicar" onclick="cadastrar_imovel_publicar()" class="hidden px-6 py-2.5 bg-marca-600 text-white rounded-lg text-sm font-medium hover:bg-marca-700 active:scale-95 transition-all shadow-sm shadow-marca-200">
+            ✓ Publicar Imóvel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    var cadastrar_imovel_etapa = 1;
+    var cadastrar_imovel_fotos = [];
+    var cadastrar_imovel_documentos = [];
+    var cadastrar_imovel_totalEtapas = 5;
+
+    var cadastrar_imovel_etapasNomes = ['Dados Básicos', 'Valores', 'Descrição e Comodidades', 'Fotos e Documentos', 'Revisão Final'];
+
+    function cadastrar_imovel_mostrarEtapa(n) {
+      document.querySelectorAll('.etapa-form').forEach(function(el) { el.classList.add('hidden'); });
+      var alvo = document.getElementById('step-' + n);
+      if (alvo) {
+        alvo.classList.remove('hidden');
+        alvo.style.opacity = '0';
+        alvo.style.transform = 'translateY(8px)';
+        requestAnimationFrame(function() {
+          alvo.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+          alvo.style.opacity = '1';
+          alvo.style.transform = 'translateY(0)';
+        });
+      }
+      document.getElementById('etapa-atual').textContent = n;
+      document.getElementById('etapa-nome').textContent = cadastrar_imovel_etapasNomes[n - 1];
+      document.getElementById('barra-progresso').style.width = ((n / cadastrar_imovel_totalEtapas) * 100) + '%';
+      var btnAnt = document.getElementById('btn-anterior');
+      var btnProx = document.getElementById('btn-proximo');
+      var btnPub = document.getElementById('btn-publicar');
+      btnAnt.classList.toggle('hidden', n === 1);
+      if (n === cadastrar_imovel_totalEtapas) {
+        btnProx.classList.add('hidden');
+        btnPub.classList.remove('hidden');
+        cadastrar_imovel_gerarRevisao();
+      } else {
+        btnProx.classList.remove('hidden');
+        btnPub.classList.add('hidden');
+      }
+    }
+
+    function cadastrar_imovel_proximo() {
+      if (!cadastrar_imovel_validarEtapa(cadastrar_imovel_etapa)) return;
+      if (cadastrar_imovel_etapa < cadastrar_imovel_totalEtapas) {
+        cadastrar_imovel_etapa++;
+        cadastrar_imovel_mostrarEtapa(cadastrar_imovel_etapa);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function cadastrar_imovel_anterior() {
+      if (cadastrar_imovel_etapa > 1) {
+        cadastrar_imovel_etapa--;
+        cadastrar_imovel_mostrarEtapa(cadastrar_imovel_etapa);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function cadastrar_imovel_validarEtapa(n) {
+      if (n === 1) {
+        var cep = document.getElementById('input-cep').value.replace(/\D/g, '');
+        var numero = document.getElementById('input-numero').value.trim();
+        var area = document.getElementById('input-area').value;
+        if (!cep || cep.length < 8) { toast('Informe um CEP válido.', 'erro'); return false; }
+        if (!numero) { toast('Informe o número do endereço.', 'erro'); return false; }
+        if (!area || parseInt(area) < 5) { toast('Informe a área útil (mínimo 5m²).', 'erro'); return false; }
+        return true;
+      }
+      if (n === 2) {
+        var aluguel = document.getElementById('input-aluguel').value.replace(/\D/g, '');
+        if (!aluguel || parseFloat(aluguel) < 100) { toast('Informe o valor do aluguel (mínimo R$ 100,00).', 'erro'); return false; }
+        return true;
+      }
+      if (n === 3) {
+        var titulo = document.getElementById('input-titulo').value.trim();
+        var descricao = document.getElementById('input-descricao').value.trim();
+        if (!titulo) { toast('Informe um título para o anúncio.', 'erro'); return false; }
+        if (!descricao || descricao.length < 20) { toast('A descrição deve ter ao menos 20 caracteres.', 'erro'); return false; }
+        return true;
+      }
+      if (n === 4) {
+        if (cadastrar_imovel_fotos.length === 0) { toast('Adicione pelo menos uma foto do imóvel.', 'erro'); return false; }
+        return true;
+      }
+      return true;
+    }
+
+    function cadastrar_imovel_mascaraCep(el) {
+      var v = el.value.replace(/\D/g, '');
+      if (v.length > 5) v = v.substring(0, 5) + '-' + v.substring(5, 8);
+      el.value = v;
+    }
+
+    function cadastrar_imovel_buscarCep() {
+      var cep = document.getElementById('input-cep').value.replace(/\D/g, '');
+      if (cep.length !== 8) { toast('CEP deve ter 8 dígitos.', 'erro'); return; }
+      toast('Buscando CEP...', 'info');
+      setTimeout(function() {
+        var dados = cadastrar_imovel_cepMock[cep];
+        if (dados) {
+          document.getElementById('input-logradouro').value = dados.logradouro;
+          document.getElementById('input-bairro').value = dados.bairro;
+          document.getElementById('input-cidade').value = dados.cidade;
+          document.getElementById('input-uf').value = dados.uf;
+          document.getElementById('input-logradouro').classList.remove('text-gray-500');
+          document.getElementById('input-logradouro').classList.add('text-gray-900');
+          toast('CEP encontrado!', 'ok');
+        } else {
+          document.getElementById('input-logradouro').value = 'Rua das Palmeiras';
+          document.getElementById('input-bairro').value = 'Jardim América';
+          document.getElementById('input-cidade').value = 'São Paulo';
+          document.getElementById('input-uf').value = 'SP';
+          toast('CEP não encontrado na base. Preencha manualmente.', 'info');
+        }
+      }, 600);
+    }
+
+    var cadastrar_imovel_cepMock = {
+      '01310930': { logradouro: 'Avenida Paulista', bairro: 'Bela Vista', cidade: 'São Paulo', uf: 'SP' },
+      '04538132': { logradouro: 'Avenida Brigadeiro Faria Lima', bairro: 'Pinheiros', cidade: 'São Paulo', uf: 'SP' },
+      '22041080': { logradouro: 'Avenida Atlântica', bairro: 'Copacabana', cidade: 'Rio de Janeiro', uf: 'RJ' },
+      '30130000': { logradouro: 'Avenida Afonso Pena', bairro: 'Centro', cidade: 'Belo Horizonte', uf: 'MG' },
+      '80010000': { logradouro: 'Rua XV de Novembro', bairro: 'Centro', cidade: 'Curitiba', uf: 'PR' },
+      '90010180': { logradouro: 'Avenida Borges de Medeiros', bairro: 'Centro Histórico', cidade: 'Porto Alegre', uf: 'RS' },
+      '60170000': { logradouro: 'Avenida Beira Mar', bairro: 'Meireles', cidade: 'Fortaleza', uf: 'CE' },
+      '40140110': { logradouro: 'Avenida Sete de Setembro', bairro: 'Barra', cidade: 'Salvador', uf: 'BA' },
+      '13100000': { logradouro: 'Rua das Flores', bairro: 'Jardim das Flores', cidade: 'Campinas', uf: 'SP' },
+      '88010000': { logradouro: 'Rua Felipe Schmidt', bairro: 'Centro', cidade: 'Florianópolis', uf: 'SC' }
+    };
+
+    function cadastrar_imovel_mascaraMoeda(el) {
+      var v = el.value.replace(/\D/g, '');
+      if (v === '') { el.value = ''; return; }
+      v = (parseInt(v) / 100).toFixed(2);
+      v = v.replace('.', ',');
+      v = v.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+      el.value = v;
+      cadastrar_imovel_atualizarResumo();
+    }
+
+    function cadastrar_imovel_limparMoeda(el) {
+      var v = el.value.replace(/\./g, '').replace(',', '.');
+      if (parseFloat(v) === 0) el.value = '';
+      cadastrar_imovel_atualizarResumo();
+    }
+
+    function cadastrar_imovel_atualizarResumo() {
+      var aluguel = parseFloat((document.getElementById('input-aluguel').value || '').replace(/\./g, '').replace(',', '.')) || 0;
+      var condominio = parseFloat((document.getElementById('input-condominio').value || '').replace(/\./g, '').replace(',', '.')) || 0;
+      var iptu = parseFloat((document.getElementById('input-iptu').value || '').replace(/\./g, '').replace(',', '.')) || 0;
+      var total = aluguel + condominio + iptu;
+      var caucao = parseInt(document.getElementById('input-caucao').value) || 0;
+      var valorCaucao = aluguel * caucao;
+      var el = document.getElementById('resumo-custos');
+      if (total === 0) { el.innerHTML = '<p>Preencha o valor do aluguel para calcular o resumo.</p>'; return; }
+      el.innerHTML =
+        '<div class="flex justify-between"><span>Aluguel mensal</span><span class="font-medium">R$ ' + brl(aluguel) + '</span></div>' +
+        '<div class="flex justify-between"><span>Condomínio</span><span class="font-medium">R$ ' + brl(condominio) + '</span></div>' +
+        '<div class="flex justify-between"><span>IPTU</span><span class="font-medium">R$ ' + brl(iptu) + '</span></div>' +
+        '<div class="flex justify-between pt-2 mt-2 border-t border-marca-200 font-semibold"><span>Custo total/mês</span><span>R$ ' + brl(total) + '</span></div>' +
+        '<div class="flex justify-between text-xs mt-1"><span>Caução (' + caucao + 'x)</span><span>R$ ' + brl(valorCaucao) + '</span></div>';
+    }
+
+    document.getElementById('input-caucao').addEventListener('change', cadastrar_imovel_atualizarResumo);
+    document.getElementById('input-titulo').addEventListener('input', function() { document.getElementById('titulo-contador').textContent = this.value.length; });
+    document.getElementById('input-descricao').addEventListener('input', function() { document.getElementById('descricao-contador').textContent = this.value.length; });
+
+    function cadastrar_imovel_processarFotos(files) {
+      if (cadastrar_imovel_fotos.length + files.length > 20) { toast('Máximo de 20 fotos.', 'erro'); return; }
+      Array.from(files).forEach(function(file) {
+        if (!file.type.startsWith('image/')) { toast('Apenas imagens são permitidas.', 'erro'); return; }
+        if (file.size > 5 * 1024 * 1024) { toast('Imagem ' + file.name + ' excede 5MB.', 'erro'); return; }
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          cadastrar_imovel_fotos.push({ nome: file.name, data: e.target.result });
+          cadastrar_imovel_renderFotos();
+          toast('Foto adicionada!', 'ok');
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function cadastrar_imovel_renderFotos() {
+      var container = document.getElementById('preview-fotos');
+      container.innerHTML = '';
+      cadastrar_imovel_fotos.forEach(function(foto, i) {
+        var div = document.createElement('div');
+        div.className = 'relative group aspect-square rounded-lg overflow-hidden bg-gray-100';
+        div.innerHTML = '<img src="' + foto.data + '" class="w-full h-full object-cover"><div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"><button type="button" onclick="cadastrar_imovel_removerFoto(' + i + ')" class="p-1.5 bg-white rounded-full hover:bg-red-50 transition-colors"><svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button></div>';
+        if (i === 0) div.innerHTML += '<span class="absolute top-1.5 left-1.5 bg-marca-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">PRINCIPAL</span>';
+        container.appendChild(div);
+      });
+    }
+
+    function cadastrar_imovel_removerFoto(i) {
+      cadastrar_imovel_fotos.splice(i, 1);
+      cadastrar_imovel_renderFotos();
+      toast('Foto removida.', 'info');
+    }
+
+    function cadastrar_imovel_processarDocumentos(files) {
+      var container = document.getElementById('lista-documentos');
+      Array.from(files).forEach(function(file) {
+        if (file.size > 10 * 1024 * 1024) { toast('Documento ' + file.name + ' excede 10MB.', 'erro'); return; }
+        var doc = { nome: file.name, tamanho: (file.size / 1024).toFixed(0) + ' KB' };
+        cadastrar_imovel_documentos.push(doc);
+        var tipoIcon = file.type === 'application/pdf'
+          ? '<svg class="w-5 h-5 text-red-500" fill="currentColor" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6zm-1 2l5 5h-5V4zM6 20V4h5v7h7v9H6z"/></svg>'
+          : '<svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>';
+        var div = document.createElement('div');
+        div.className = 'flex items-center gap-3 bg-gray-50 rounded-lg px-4 py-2.5';
+        div.innerHTML = tipoIcon + '<div class="flex-1 min-w-0"><p class="text-sm text-gray-700 truncate">' + doc.nome + '</p><p class="text-xs text-gray-400">' + doc.tamanho + '</p></div><span class="badge badge-green text-xs">Enviado</span>';
+        container.appendChild(div);
+        toast('Documento "' + doc.nome + '" enviado!', 'ok');
+      });
+    }
+
+    function cadastrar_imovel_gerarRevisao() {
+      var tipo = document.querySelector('input[name="tipo_imovel"]:checked');
+      var tipoLabel = tipo ? { kitnet: 'Kitnet', apartamento: 'Apartamento', casa: 'Casa' }[tipo.value] : '—';
+      var endereco = [document.getElementById('input-logradouro').value, document.getElementById('input-numero').value, document.getElementById('input-bairro').value, document.getElementById('input-cidade').value + '/' + document.getElementById('input-uf').value].filter(Boolean).join(', ') || '—';
+      var aluguel = (document.getElementById('input-aluguel').value || '0');
+      var titulo = document.getElementById('input-titulo').value || '—';
+      var comodidades = [];
+      document.querySelectorAll('input[name="comodidade"]:checked').forEach(function(c) { comodidades.push(c.parentElement.querySelector('span').textContent); });
+      var comodidadesStr = comodidades.length > 0 ? comodidades.join(', ') : 'Nenhuma selecionada';
+      var container = document.getElementById('revisao-conteudo');
+      container.innerHTML =
+        '<div class="card"><div class="card-body"><div class="flex items-center justify-between mb-3"><h3 class="font-display font-semibold text-gray-900">Informações do Imóvel</h3><button type="button" onclick="cadastrar_imovel_etapa=1;cadastrar_imovel_mostrarEtapa(1)" class="text-xs text-marca-600 hover:text-marca-700 font-medium">Editar</button></div><dl class="grid grid-cols-2 gap-3 text-sm">' +
+        '<div><dt class="text-gray-500">Tipo</dt><dd class="text-gray-900 font-medium">' + tipoLabel + '</dd></div>' +
+        '<div><dt class="text-gray-500">Área</dt><dd class="text-gray-900 font-medium">' + (document.getElementById('input-area').value || '—') + ' m²</dd></div>' +
+        '<div><dt class="text-gray-500">Quartos</dt><dd class="text-gray-900 font-medium">' + document.getElementById('input-quartos').value + '</dd></div>' +
+        '<div><dt class="text-gray-500">Banheiros</dt><dd class="text-gray-900 font-medium">' + document.getElementById('input-banheiros').value + '</dd></div>' +
+        '<div class="col-span-2"><dt class="text-gray-500">Endereço</dt><dd class="text-gray-900 font-medium">' + endereco + '</dd></div></dl></div></div>' +
+        '<div class="card"><div class="card-body"><div class="flex items-center justify-between mb-3"><h3 class="font-display font-semibold text-gray-900">Valores</h3><button type="button" onclick="cadastrar_imovel_etapa=2;cadastrar_imovel_mostrarEtapa(2)" class="text-xs text-marca-600 hover:text-marca-700 font-medium">Editar</button></div><dl class="grid grid-cols-2 gap-3 text-sm">' +
+        '<div><dt class="text-gray-500">Aluguel</dt><dd class="text-gray-900 font-medium text-lg">R$ ' + aluguel + '</dd></div>' +
+        '<div><dt class="text-gray-500">Condomínio</dt><dd class="text-gray-900 font-medium">R$ ' + (document.getElementById('input-condominio').value || '0') + '</dd></div>' +
+        '<div><dt class="text-gray-500">IPTU</dt><dd class="text-gray-900 font-medium">R$ ' + (document.getElementById('input-iptu').value || '0') + '</dd></div>' +
+        '<div><dt class="text-gray-500">Caução</dt><dd class="text-gray-900 font-medium">' + document.getElementById('input-caucao').selectedOptions[0].text + '</dd></div></dl></div></div>' +
+        '<div class="card"><div class="card-body"><div class="flex items-center justify-between mb-3"><h3 class="font-display font-semibold text-gray-900">Descrição</h3><button type="button" onclick="cadastrar_imovel_etapa=3;cadastrar_imovel_mostrarEtapa(3)" class="text-xs text-marca-600 hover:text-marca-700 font-medium">Editar</button></div>' +
+        '<p class="text-sm font-medium text-gray-800 mb-1">' + titulo + '</p>' +
+        '<p class="text-sm text-gray-500 line-clamp-3">' + (document.getElementById('input-descricao').value || '—') + '</p>' +
+        '<div class="flex flex-wrap gap-1.5 mt-3">' + comodidades.split(', ').map(function(c) { return '<span class="badge badge-marca">' + c + '</span>'; }).join('') + '</div></div></div>' +
+        '<div class="card"><div class="card-body"><div class="flex items-center justify-between mb-3"><h3 class="font-display font-semibold text-gray-900">Mídia</h3><button type="button" onclick="cadastrar_imovel_etapa=4;cadastrar_imovel_mostrarEtapa(4)" class="text-xs text-marca-600 hover:text-marca-700 font-medium">Editar</button></div>' +
+        '<div class="flex items-center gap-2 text-sm"><svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span class="text-gray-700">' + cadastrar_imovel_fotos.length + ' foto(s) enviada(s)</span></div>' +
+        (cadastrar_imovel_documentos.length > 0 ? '<div class="flex items-center gap-2 text-sm mt-1"><svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg><span class="text-gray-700">' + cadastrar_imovel_documentos.length + ' documento(s) enviado(s)</span></div>' : '<div class="flex items-center gap-2 text-sm mt-1"><svg class="w-4 h-4 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg><span class="text-gray-700">Nenhum documento enviado</span></div>') + '</div></div>';
+    }
+
+    function cadastrar_imovel_publicar() {
+      var btn = document.getElementById('btn-publicar');
+      btn.disabled = true;
+      btn.innerHTML = '<svg class="w-4 h-4 animate-spin mr-1.5 inline" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>Publicando...';
+      btn.classList.add('opacity-70');
+      setTimeout(function() {
+        abrirModal('<div class="text-center py-6"><div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><h3 class="font-display text-xl font-semibold text-gray-900 mb-2">Imóvel enviado para moderação!</h3><p class="text-sm text-gray-500 mb-1">Seu anúncio será revisado em até 24 horas.</p><p class="text-xs text-gray-400 mb-6">Você receberá uma notificação quando for aprovado.</p></div>', 'Publicação Enviada');
+        btn.disabled = false;
+        btn.innerHTML = '✓ Publicar Imóvel';
+        btn.classList.remove('opacity-70');
+        setTimeout(function() { fecharModal(); mostrarTela('painel-do-proprietario'); toast('Imóvel cadastrado com sucesso!', 'ok'); }, 2500);
+      }, 1500);
+    }
+
+    function cadastrar_imovel_confirmarCancelar() {
+      abrirModal('<div class="py-2"><p class="text-sm text-gray-600 mb-1">Tem certeza que deseja cancelar?</p><p class="text-xs text-gray-400">Todos os dados preenchidos serão perdidos.</p></div>', 'Cancelar Cadastro');
+      setTimeout(function() {
+        var btns = document.querySelectorAll('.modal-footer button');
+        if (btns.length >= 2) {
+          btns[0].onclick = function() { fecharModal(); cadastrar_imovel_resetar(); mostrarTela('painel-do-proprietario'); };
+        }
+      }, 50);
+    }
+
+    function cadastrar_imovel_resetar() {
+      cadastrar_imovel_etapa = 1;
+      cadastrar_imovel_fotos = [];
+      cadastrar_imovel_documentos = [];
+      document.getElementById('form-cadastro').reset();
+      document.getElementById('preview-fotos').innerHTML = '';
+      document.getElementById('lista-documentos').innerHTML = '';
+      document.getElementById('titulo-contador').textContent = '0';
+      document.getElementById('descricao-contador').textContent = '0';
+      ['input-logradouro', 'input-bairro', 'input-cidade', 'input-uf'].forEach(function(id) {
+        document.getElementById(id).value = '';
+        document.getElementById(id).classList.add('text-gray-500');
+        document.getElementById(id).classList.remove('text-gray-900');
+      });
+      cadastrar_imovel_mostrarEtapa(1);
+    }
+  </script>
+</section>
+
     <!-- TELAS -->
     </main>
   </div>
