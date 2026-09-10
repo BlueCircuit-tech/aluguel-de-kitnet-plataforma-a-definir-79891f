@@ -519,6 +519,432 @@ renderFiltros();
 })();
 </script>
 
+    <section data-tela="resultados-da-busca" class="hidden">
+      <div class="max-w-[1400px] mx-auto px-6 py-6">
+        <!-- Cabeçalho da tela -->
+        <div class="mb-6 flex items-end justify-between flex-wrap gap-4">
+          <div>
+            <h1 class="font-display text-3xl font-bold text-gray-900">Resultados da Busca</h1>
+            <p class="text-gray-500 mt-1 font-body">12 kitnets encontradas em <span class="font-semibold text-marca-700">São Paulo, SP</span> para <span class="font-semibold">entrada imediata</span></p>
+          </div>
+          <button onclick="mostrarTela('cadastrar-imovel')" class="btn bg-marca-600 hover:bg-marca-700 text-white px-5 py-2.5 rounded-xl font-semibold text-sm flex items-center gap-2 active:scale-95 transition-all shadow-lg shadow-marca-600/20">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            Cadastrar Imóvel
+          </button>
+        </div>
+
+        <div class="flex gap-6 items-start">
+          <!-- Sidebar de filtros -->
+          <aside class="w-72 flex-shrink-0 space-y-5">
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+              <h3 class="font-display font-bold text-gray-900 text-lg mb-4 flex items-center gap-2">
+                <svg class="w-5 h-5 text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                Filtros
+              </h3>
+
+              <!-- Faixa de preço -->
+              <div class="mb-5">
+                <label class="text-sm font-semibold text-gray-700 block mb-2">Faixa de preço</label>
+                <div class="flex items-center gap-3 mb-2">
+                  <span class="text-sm text-gray-500">R$</span>
+                  <input type="number" id="precoMin" value="800" min="300" max="5000" step="100" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-marca-500 focus:border-marca-500 outline-none transition-all font-body" onchange="resultados_da_busca_aplicarFiltros()">
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="text-sm text-gray-500">R$</span>
+                  <input type="number" id="precoMax" value="3500" min="300" max="5000" step="100" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-marca-500 focus:border-marca-500 outline-none transition-all font-body" onchange="resultados_da_busca_aplicarFiltros()">
+                </div>
+                <input type="range" id="rangePreco" min="300" max="5000" value="3500" class="w-full mt-3 accent-marca-600" oninput="document.getElementById('precoMax').value=this.value;resultados_da_busca_aplicarFiltros()">
+              </div>
+
+              <!-- Bairros -->
+              <div class="mb-5">
+                <label class="text-sm font-semibold text-gray-700 block mb-2">Bairro</label>
+                <div class="space-y-2" id="filtro-bairros">
+                  <label class="flex items-center gap-2.5 cursor-pointer group">
+                    <input type="checkbox" value="Pinheiros" class="filtro-bairro w-4 h-4 rounded border-gray-300 text-marca-600 focus:ring-marca-500" onchange="resultados_da_busca_aplicarFiltros()">
+                    <span class="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">Pinheiros</span>
+                    <span class="badge bg-gray-100 text-gray-500 text-xs ml-auto">3</span>
+                  </label>
+                  <label class="flex items-center gap-2.5 cursor-pointer group">
+                    <input type="checkbox" value="Vila Madalena" class="filtro-bairro w-4 h-4 rounded border-gray-300 text-marca-600 focus:ring-marca-500" onchange="resultados_da_busca_aplicarFiltros()">
+                    <span class="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">Vila Madalena</span>
+                    <span class="badge bg-gray-100 text-gray-500 text-xs ml-auto">2</span>
+                  </label>
+                  <label class="flex items-center gap-2.5 cursor-pointer group">
+                    <input type="checkbox" value="Consolação" class="filtro-bairro w-4 h-4 rounded border-gray-300 text-marca-600 focus:ring-marca-500" onchange="resultados_da_busca_aplicarFiltros()">
+                    <span class="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">Consolação</span>
+                    <span class="badge bg-gray-100 text-gray-500 text-xs ml-auto">2</span>
+                  </label>
+                  <label class="flex items-center gap-2.5 cursor-pointer group">
+                    <input type="checkbox" value="Bela Vista" class="filtro-bairro w-4 h-4 rounded border-gray-300 text-marca-600 focus:ring-marca-500" onchange="resultados_da_busca_aplicarFiltros()">
+                    <span class="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">Bela Vista</span>
+                    <span class="badge bg-gray-100 text-gray-500 text-xs ml-auto">2</span>
+                  </label>
+                  <label class="flex items-center gap-2.5 cursor-pointer group">
+                    <input type="checkbox" value="Jardins" class="filtro-bairro w-4 h-4 rounded border-gray-300 text-marca-600 focus:ring-marca-500" onchange="resultados_da_busca_aplicarFiltros()">
+                    <span class="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">Jardins</span>
+                    <span class="badge bg-gray-100 text-gray-500 text-xs ml-auto">1</span>
+                  </label>
+                  <label class="flex items-center gap-2.5 cursor-pointer group">
+                    <input type="checkbox" value="Moema" class="filtro-bairro w-4 h-4 rounded border-gray-300 text-marca-600 focus:ring-marca-500" onchange="resultados_da_busca_aplicarFiltros()">
+                    <span class="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">Moema</span>
+                    <span class="badge bg-gray-100 text-gray-500 text-xs ml-auto">2</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Comodidades -->
+              <div class="mb-5">
+                <label class="text-sm font-semibold text-gray-700 block mb-2">Comodidades</label>
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-600">Mobiliado</span>
+                    <button id="switch-mobiliado" onclick="resultados_da_busca_toggleSwitch(this,'mobiliado')" class="w-11 h-6 bg-gray-200 rounded-full relative transition-colors duration-200">
+                      <span class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200"></span>
+                    </button>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-600">Pet friendly</span>
+                    <button id="switch-pet" onclick="resultados_da_busca_toggleSwitch(this,'pet')" class="w-11 h-6 bg-gray-200 rounded-full relative transition-colors duration-200">
+                      <span class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200"></span>
+                    </button>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm text-gray-600">Vaga de garagem</span>
+                    <button id="switch-garagem" onclick="resultados_da_busca_toggleSwitch(this,'garagem')" class="w-11 h-6 bg-gray-200 rounded-full relative transition-colors duration-200">
+                      <span class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200"></span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <button onclick="resultados_da_busca_limparFiltros()" class="w-full text-center text-sm text-marca-600 hover:text-marca-700 font-semibold py-2 rounded-lg hover:bg-marca-50 transition-all">
+                Limpar filtros
+              </button>
+            </div>
+          </aside>
+
+          <!-- Conteúdo principal -->
+          <div class="flex-1 min-w-0">
+            <!-- Ordenação -->
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm px-4 py-3 mb-4 flex items-center justify-between flex-wrap gap-3">
+              <span class="text-sm text-gray-500" id="contador-resultados">Mostrando 12 resultados</span>
+              <div class="flex items-center gap-2">
+                <label class="text-sm text-gray-500">Ordenar por:</label>
+                <select id="ordenacao" onchange="resultados_da_busca_aplicarFiltros()" class="border border-gray-200 rounded-lg px-3 py-1.5 text-sm focus:ring-2 focus:ring-marca-500 outline-none font-body cursor-pointer">
+                  <option value="relevancia">Relevância</option>
+                  <option value="preco-asc">Preço: menor → maior</option>
+                  <option value="preco-desc">Preço: maior → menor</option>
+                  <option value="recentes">Mais recentes</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Grid de cards -->
+            <div id="grid-imoveis" class="grid grid-cols-1 xl:grid-cols-2 gap-4">
+            </div>
+
+            <!-- Estado vazio -->
+            <div id="estado-vazio" class="hidden text-center py-16">
+              <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+              </div>
+              <h3 class="font-display font-bold text-xl text-gray-900 mb-2">Nenhum imóvel encontrado</h3>
+              <p class="text-gray-500 text-sm max-w-md mx-auto">Tente ajustar os filtros ou expandir a faixa de preço para ver mais opções.</p>
+              <button onclick="resultados_da_busca_limparFiltros()" class="btn bg-marca-600 hover:bg-marca-700 text-white px-6 py-2.5 rounded-xl font-semibold text-sm mt-4 active:scale-95 transition-all">Limpar filtros</button>
+            </div>
+          </div>
+
+          <!-- Mini-mapa -->
+          <div class="w-80 flex-shrink-0 hidden 2xl:block">
+            <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-4 sticky top-4">
+              <h3 class="font-display font-bold text-gray-900 text-sm mb-3 flex items-center gap-2">
+                <svg class="w-4 h-4 text-marca-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                Mapa dos imóveis
+              </h3>
+              <div id="mini-mapa" class="w-full aspect-square bg-gray-50 rounded-xl overflow-hidden relative border border-gray-100">
+                <svg viewBox="0 0 300 300" class="w-full h-full">
+                  <defs>
+                    <pattern id="grid-mapa" width="30" height="30" patternUnits="userSpaceOnUse">
+                      <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#e5e7eb" stroke-width="0.5"/>
+                    </pattern>
+                    <radialGradient id="map-bg"><stop offset="0%" stop-color="#f8fafc"/><stop offset="100%" stop-color="#f1f5f9"/></radialGradient>
+                  </defs>
+                  <rect width="300" height="300" fill="url(#map-bg)"/>
+                  <rect width="300" height="300" fill="url(#grid-mapa)"/>
+                  <!-- Ruas -->
+                  <line x1="0" y1="75" x2="300" y2="75" stroke="#d1d5db" stroke-width="3"/>
+                  <line x1="0" y1="150" x2="300" y2="150" stroke="#d1d5db" stroke-width="3"/>
+                  <line x1="0" y1="225" x2="300" y2="225" stroke="#d1d5db" stroke-width="3"/>
+                  <line x1="75" y1="0" x2="75" y2="300" stroke="#d1d5db" stroke-width="3"/>
+                  <line x1="150" y1="0" x2="150" y2="300" stroke="#d1d5db" stroke-width="3"/>
+                  <line x1="225" y1="0" x2="225" y2="300" stroke="#d1d5db" stroke-width="3"/>
+                  <!-- Pinos dos imóveis -->
+                  <g class="cursor-pointer hover:opacity-80 transition-opacity" onclick="resultados_da_busca_destaqueImovel(0)">
+                    <circle cx="95" cy="65" r="14" fill="#6366f1" opacity="0.15"/>
+                    <circle cx="95" cy="65" r="9" fill="#6366f1"/>
+                    <text x="95" y="69" text-anchor="middle" fill="white" font-size="8" font-weight="bold">1</text>
+                  </g>
+                  <g class="cursor-pointer hover:opacity-80 transition-opacity" onclick="resultados_da_busca_destaqueImovel(1)">
+                    <circle cx="165" cy="120" r="14" fill="#6366f1" opacity="0.15"/>
+                    <circle cx="165" cy="120" r="9" fill="#6366f1"/>
+                    <text x="165" y="124" text-anchor="middle" fill="white" font-size="8" font-weight="bold">2</text>
+                  </g>
+                  <g class="cursor-pointer hover:opacity-80 transition-opacity" onclick="resultados_da_busca_destaqueImovel(2)">
+                    <circle cx="80" cy="195" r="14" fill="#6366f1" opacity="0.15"/>
+                    <circle cx="80" cy="195" r="9" fill="#6366f1"/>
+                    <text x="80" y="199" text-anchor="middle" fill="white" font-size="8" font-weight="bold">3</text>
+                  </g>
+                  <g class="cursor-pointer hover:opacity-80 transition-opacity" onclick="resultados_da_busca_destaqueImovel(3)">
+                    <circle cx="210" cy="80" r="14" fill="#6366f1" opacity="0.15"/>
+                    <circle cx="210" cy="80" r="9" fill="#6366f1"/>
+                    <text x="210" y="84" text-anchor="middle" fill="white" font-size="8" font-weight="bold">4</text>
+                  </g>
+                  <g class="cursor-pointer hover:opacity-80 transition-opacity" onclick="resultados_da_busca_destaqueImovel(4)">
+                    <circle cx="240" cy="175" r="14" fill="#6366f1" opacity="0.15"/>
+                    <circle cx="240" cy="175" r="9" fill="#6366f1"/>
+                    <text x="240" y="179" text-anchor="middle" fill="white" font-size="8" font-weight="bold">5</text>
+                  </g>
+                  <g class="cursor-pointer hover:opacity-80 transition-opacity" onclick="resultados_da_busca_destaqueImovel(5)">
+                    <circle cx="130" cy="250" r="14" fill="#6366f1" opacity="0.15"/>
+                    <circle cx="130" cy="250" r="9" fill="#6366f1"/>
+                    <text x="130" y="254" text-anchor="middle" fill="white" font-size="8" font-weight="bold">6</text>
+                  </g>
+                </svg>
+                <div class="absolute bottom-2 left-2 bg-white/90 backdrop-blur-sm rounded-lg px-2 py-1 text-xs text-gray-500 border border-gray-100">
+                  São Paulo, SP
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal de favorito -->
+      <script>
+        // Dados dos imóveis
+        const resultados_da_busca_imoveis = [
+          { id: 1, titulo: 'Kitnet Studio — Pinheiros', bairro: 'Pinheiros', endereco: 'Rua dos Pinheiros, 420', preco: 1850, area: 28, quartos: 1, banheiros: 1, mobiliado: true, petFriendly: true, garagem: false, foto: 'Pinheiros', dataPublicacao: '2025-06-10', descricao: 'Kitnet recém-reformada com cozinha integrada, sala e dormitório em ambiente otimizado. Próximo à estação Faria Lima.', destaque: true },
+          { id: 2, titulo: 'Kitnet Compacta — Vila Madalena', bairro: 'Vila Madalena', endereco: 'Rua Harmonia, 85', preco: 1600, area: 22, quartos: 1, banheiros: 1, mobiliado: false, petFriendly: false, garagem: false, foto: 'Vila Madalena', dataPublicacao: '2025-06-12', descricao: 'Ambiente clean e arejado, boa iluminação natural. Próximo a mercados, padarias e transporte público.', destaque: false },
+          { id: 3, titulo: 'Kitnet Amplo — Consolação', bairro: 'Consolação', endereco: 'Alameda Santos, 1200', preco: 2200, area: 35, quartos: 1, banheiros: 1, mobiliado: true, petFriendly: true, garagem: true, foto: 'Consolação', dataPublicacao: '2025-06-08', descricao: 'Espaço generoso com área de serviço separada, armário planejado e vaga de garagem inclusa.', destaque: true },
+          { id: 4, titulo: 'Kitnet Econômica — Bela Vista', bairro: 'Bela Vista', endereco: 'Rua Martins Fontes, 55', preco: 1200, area: 18, quartos: 1, banheiros: 1, mobiliado: false, petFriendly: false, garagem: false, foto: 'Bela Vista', dataPublicacao: '2025-06-14', descricao: 'Opção econômica em localização central. Próximo à Av. Paulista e ao metrô Consolação.', destaque: false },
+          { id: 5, titulo: 'Kitnet Luxo — Jardins', bairro: 'Jardins', endereco: 'Rua Oscar Freire, 180', preco: 3200, area: 40, quartos: 1, banheiros: 1, mobiliado: true, petFriendly: true, garagem: true, foto: 'Jardins', dataPublicacao: '2025-06-05', descricao: 'Acabamento premium, piso de madeira, varanda privativa e vaga coberta. Na melhor localização dos Jardins.', destaque: true },
+          { id: 6, titulo: 'Kitnet Aconchegante — Moema', bairro: 'Moema', endereco: 'Alameda dos Jurupis, 300', preco: 2100, area: 30, quartos: 1, banheiros: 1, mobiliado: true, petFriendly: false, garagem: false, foto: 'Moema', dataPublicacao: '2025-06-11', descricao: 'Bairro tranquilo e arborizado, com fácil acesso a supermercados, academias e restaurantes.', destaque: false },
+          { id: 7, titulo: 'Kitnet Moderna — Pinheiros', bairro: 'Pinheiros', endereco: 'Rua Teodoro Sampaio, 900', preco: 1950, area: 26, quartos: 1, banheiros: 1, mobiliado: true, petFriendly: true, garagem: false, foto: 'Pinheiros', dataPublicacao: '2025-06-09', descricao: 'Design contemporâneo com smart home básico. Próximo ao parque e comércio local.', destaque: false },
+          { id: 8, titulo: 'Kitnet Compacta — Consolação', bairro: 'Consolação', endereco: 'Rua da Consolação, 2500', preco: 1400, area: 20, quartos: 1, banheiros: 1, mobiliado: false, petFriendly: false, garagem: false, foto: 'Consolação', dataPublicacao: '2025-06-13', descricao: 'Boas opções de lazer no prédio. Condomínio com lavanderia coletiva e área gourmet.', destaque: false },
+          { id: 9, titulo: 'Kitnet Espaçosa — Vila Madalena', bairro: 'Vila Madalena', endereco: 'Rua Aspicuelta, 410', preco: 2400, area: 38, quartos: 1, banheiros: 1, mobiliado: true, petFriendly: true, garagem: true, foto: 'Vila Madalena', dataPublicacao: '2025-06-06', descricao: 'Coração da Vila Madalena, com vista para a rua principal. Vaga de garagem numerada.', destaque: true },
+          { id: 10, titulo: 'Kitnet Compacta — Moema', bairro: 'Moema', endereco: 'Rua Normandia, 50', preco: 1700, area: 24, quartos: 1, banheiros: 1, mobiliado: false, petFriendly: true, garagem: false, foto: 'Moema', dataPublicacao: '2025-06-07', descricao: 'Próximo ao Parque Ibirapuera. Prédio com academia e piscina inclusas no condomínio.', destaque: false },
+          { id: 11, titulo: 'Kitnet Central — Bela Vista', bairro: 'Bela Vista', endereco: 'Rua Bela Cintra, 700', preco: 1550, area: 22, quartos: 1, banheiros: 1, mobiliado: true, petFriendly: false, garagem: false, foto: 'Bela Vista', dataPublicacao: '2025-06-15', descricao: 'Próximo à Av. Paulista e à estação de metrô Consolação. Condomínio com portaria 24h.', destaque: false },
+          { id: 12, titulo: 'Kitnet Premium — Jardins', bairro: 'Jardins', endereco: 'Rua Alves Guimarães, 95', preco: 2800, area: 32, quartos: 1, banheiros: 1, mobiliado: true, petFriendly: true, garagem: true, foto: 'Jardins', dataPublicacao: '2025-06-04', descricao: 'Acabamento de alto padrão em prédio boutique. Ar-condicionado, internet fibra e lavanderia no andar.', destaque: true }
+        ];
+
+        // Cores de fundo para avatares de inicial por bairro
+        const bairroCores = {
+          'Pinheiros': { bg: 'bg-emerald-100', text: 'text-emerald-700', pin: '#10b981' },
+          'Vila Madalena': { bg: 'bg-amber-100', text: 'text-amber-700', pin: '#f59e0b' },
+          'Consolação': { bg: 'bg-sky-100', text: 'text-sky-700', pin: '#0ea5e9' },
+          'Bela Vista': { bg: 'bg-rose-100', text: 'text-rose-700', pin: '#f43f5e' },
+          'Jardins': { bg: 'bg-purple-100', text: 'text-purple-700', pin: '#8b5cf6' },
+          'Moema': { bg: 'bg-teal-100', text: 'text-teal-700', pin: '#14b8a6' }
+        };
+
+        function resultados_da_busca_iniciais(nome) {
+          const parts = nome.split('—')[0].trim().split(' ');
+          return parts.map(w => w[0]).join('').slice(0, 2).toUpperCase();
+        }
+
+        function resultados_da_busca_renderizarCards(lista) {
+          const grid = document.getElementById('grid-imoveis');
+          const vazio = document.getElementById('estado-vazio');
+          const contador = document.getElementById('contador-resultados');
+
+          contador.textContent = lista.length === 1 ? '1 resultado encontrado' : `${lista.length} resultados encontrados`;
+
+          if (lista.length === 0) {
+            grid.innerHTML = '';
+            vazio.classList.remove('hidden');
+            return;
+          }
+          vazio.classList.add('hidden');
+
+          grid.innerHTML = lista.map((im, idx) => {
+            const cor = bairroCores[im.bairro] || { bg: 'bg-gray-100', text: 'text-gray-700', pin: '#6b7280' };
+            const iniciais = resultados_da_busca_iniciais(im.titulo);
+            const gradianteFundo = `linear-gradient(135deg, ${cor.pin}22, ${cor.pin}44)`;
+            return `
+            <div class="card bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg hover:border-marca-200 transition-all duration-300 overflow-hidden group cursor-pointer" onclick="resultados_da_busca_abrirDetalhe(${im.id})">
+              <div class="flex gap-4 p-4">
+                <!-- Foto -->
+                <div class="w-36 h-36 rounded-xl flex-shrink-0 flex items-center justify-center relative overflow-hidden" style="background:${gradianteFundo}">
+                  <div class="w-16 h-16 rounded-full ${cor.bg} ${cor.text} flex items-center justify-center font-display font-bold text-2xl">
+                    ${iniciais}
+                  </div>
+                  ${im.destaque ? `<span class="absolute top-2 left-2 badge bg-amber-400 text-amber-900 text-xs font-bold px-2 py-0.5 rounded-full">Destaque</span>` : ''}
+                </div>
+                <!-- Conteúdo -->
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-start justify-between gap-2 mb-1">
+                    <h3 class="font-display font-bold text-gray-900 text-sm leading-tight group-hover:text-marca-700 transition-colors truncate">${im.titulo}</h3>
+                    <svg class="w-5 h-5 text-gray-300 hover:text-red-400 flex-shrink-0 transition-colors" onclick="event.stopPropagation();resultados_da_busca_favoritar(${im.id})" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                  </div>
+                  <p class="text-xs text-gray-500 flex items-center gap-1 mb-2">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    ${im.endereco}
+                  </p>
+                  <div class="flex items-center gap-3 mb-3">
+                    <span class="badge ${cor.bg} ${cor.text} text-xs font-medium px-2 py-0.5 rounded-lg">${im.bairro}</span>
+                    ${im.mobiliado ? `<span class="badge bg-blue-50 text-blue-600 text-xs font-medium px-2 py-0.5 rounded-lg">Mobiliado</span>` : ''}
+                    ${im.petFriendly ? `<span class="badge bg-green-50 text-green-600 text-xs font-medium px-2 py-0.5 rounded-lg">Pet</span>` : ''}
+                  </div>
+                  <div class="flex items-end justify-between">
+                    <div>
+                      <span class="font-display font-bold text-xl text-marca-700">${im.preco.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}</span>
+                      <span class="text-xs text-gray-400 block">/mês</span>
+                    </div>
+                    <div class="flex items-center gap-3 text-xs text-gray-500">
+                      <span class="flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m7-7l7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>${im.quartos}</span>
+                      <span class="flex items-center gap-1"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>${im.area}m²</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="border-t border-gray-50 px-4 py-3 flex items-center justify-between bg-gray-50/50">
+                <span class="text-xs text-gray-400">Publicado em ${dataBR(im.dataPublicacao)}</span>
+                <button onclick="event.stopPropagation();mostrarTela('detalhes-do-imovel')" class="bg-marca-600 hover:bg-marca-700 text-white text-xs font-semibold px-4 py-2 rounded-lg active:scale-95 transition-all shadow-sm">
+                  Ver detalhes →
+                </button>
+              </div>
+            </div>`;
+          }).join('');
+        }
+
+        function resultados_da_busca_toggleSwitch(btn, tipo) {
+          const span = btn.querySelector('span');
+          const isOn = btn.dataset.on === 'true';
+          if (isOn) {
+            btn.classList.remove('bg-marca-600');
+            btn.classList.add('bg-gray-200');
+            span.style.transform = 'translateX(0)';
+            btn.dataset.on = 'false';
+          } else {
+            btn.classList.remove('bg-gray-200');
+            btn.classList.add('bg-marca-600');
+            span.style.transform = 'translateX(20px)';
+            btn.dataset.on = 'true';
+          }
+          resultados_da_busca_aplicarFiltros();
+        }
+
+        function resultados_da_busca_getFiltrosAtivos() {
+          const precoMin = parseInt(document.getElementById('precoMin').value) || 0;
+          const precoMax = parseInt(document.getElementById('precoMax').value) || 99999;
+          const bairros = Array.from(document.querySelectorAll('.filtro-bairro:checked')).map(cb => cb.value);
+          const mobiliado = document.getElementById('switch-mobiliado').dataset.on === 'true';
+          const pet = document.getElementById('switch-pet').dataset.on === 'true';
+          const garagem = document.getElementById('switch-garagem').dataset.on === 'true';
+          const ordenacao = document.getElementById('ordenacao').value;
+          return { precoMin, precoMax, bairros, mobiliado, pet, garagem, ordenacao };
+        }
+
+        function resultados_da_busca_aplicarFiltros() {
+          const f = resultados_da_busca_getFiltrosAtivos();
+          let lista = [...resultados_da_busca_imoveis];
+
+          lista = lista.filter(im => im.preco >= f.precoMin && im.preco <= f.precoMax);
+          if (f.bairros.length > 0) lista = lista.filter(im => f.bairros.includes(im.bairro));
+          if (f.mobiliado) lista = lista.filter(im => im.mobiliado);
+          if (f.pet) lista = lista.filter(im => im.petFriendly);
+          if (f.garagem) lista = lista.filter(im => im.garagem);
+
+          switch (f.ordenacao) {
+            case 'preco-asc': lista.sort((a, b) => a.preco - b.preco); break;
+            case 'preco-desc': lista.sort((a, b) => b.preco - a.preco); break;
+            case 'recentes': lista.sort((a, b) => new Date(b.dataPublicacao) - new Date(a.dataPublicacao)); break;
+            default: break;
+          }
+
+          resultados_da_busca_renderizarCards(lista);
+        }
+
+        function resultados_da_busca_limparFiltros() {
+          document.getElementById('precoMin').value = 300;
+          document.getElementById('precoMax').value = 5000;
+          document.getElementById('rangePreco').value = 5000;
+          document.querySelectorAll('.filtro-bairro').forEach(cb => cb.checked = false);
+          ['mobiliado', 'pet', 'garagem'].forEach(t => {
+            const btn = document.getElementById('switch-' + t);
+            btn.classList.remove('bg-marca-600');
+            btn.classList.add('bg-gray-200');
+            btn.querySelector('span').style.transform = 'translateX(0)';
+            btn.dataset.on = 'false';
+          });
+          document.getElementById('ordenacao').value = 'relevancia';
+          resultados_da_busca_aplicarFiltros();
+          toast('Filtros limpos com sucesso', 'info');
+        }
+
+        function resultados_da_busca_favoritar(id) {
+          toast('Imóvel adicionado aos favoritos', 'ok');
+        }
+
+        function resultados_da_busca_abrirDetalhe(id) {
+          const im = resultados_da_busca_imoveis.find(i => i.id === id);
+          if (!im) return;
+          const cor = bairroCores[im.bairro] || { bg: 'bg-gray-100', text: 'text-gray-700', pin: '#6b7280' };
+          abrirModal(`
+            <div class="space-y-4">
+              <div class="h-48 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,${cor.pin}33,${cor.pin}55)">
+                <span class="font-display font-bold text-4xl text-white/80">${resultados_da_busca_iniciais(im.titulo)}</span>
+              </div>
+              <div class="flex items-start justify-between">
+                <div>
+                  <h2 class="font-display font-bold text-xl text-gray-900">${im.titulo}</h2>
+                  <p class="text-sm text-gray-500 mt-1 flex items-center gap-1"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>${im.endereco}</p>
+                </div>
+                <span class="font-display font-bold text-2xl text-marca-700">${im.preco.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}<span class="text-sm text-gray-400">/mês</span></span>
+              </div>
+              <p class="text-gray-600 text-sm">${im.descricao}</p>
+              <div class="flex flex-wrap gap-2">
+                <span class="badge ${cor.bg} ${cor.text} text-xs font-medium px-3 py-1.5 rounded-lg">${im.bairro}</span>
+                ${im.mobiliado ? '<span class="badge bg-blue-50 text-blue-600 text-xs font-medium px-3 py-1.5 rounded-lg">🪑 Mobiliado</span>' : ''}
+                ${im.petFriendly ? '<span class="badge bg-green-50 text-green-600 text-xs font-medium px-3 py-1.5 rounded-lg">🐕 Pet friendly</span>' : ''}
+                ${im.garagem ? '<span class="badge bg-purple-50 text-purple-600 text-xs font-medium px-3 py-1.5 rounded-lg">🚗 Garagem</span>' : ''}
+              </div>
+              <div class="grid grid-cols-3 gap-3">
+                <div class="bg-gray-50 rounded-xl p-3 text-center">
+                  <p class="text-xs text-gray-500">Área</p>
+                  <p class="font-display font-bold text-gray-900">${im.area}m²</p>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-3 text-center">
+                  <p class="text-xs text-gray-500">Quartos</p>
+                  <p class="font-display font-bold text-gray-900">${im.quartos}</p>
+                </div>
+                <div class="bg-gray-50 rounded-xl p-3 text-center">
+                  <p class="text-xs text-gray-500">Banheiros</p>
+                  <p class="font-display font-bold text-gray-900">${im.banheiros}</p>
+                </div>
+              </div>
+              <div class="flex gap-2 pt-2">
+                <button onclick="fecharModal();mostrarTela('agendar-visita')" class="flex-1 bg-marca-600 hover:bg-marca-700 text-white py-2.5 rounded-xl font-semibold text-sm active:scale-95 transition-all">Agendar Visita</button>
+                <button onclick="fecharModal();resultados_da_busca_favoritar(${im.id})" class="px-4 py-2.5 border border-gray-200 rounded-xl text-gray-600 hover:bg-gray-50 text-sm font-semibold active:scale-95 transition-all">❤️ Favoritar</button>
+              </div>
+            </div>
+          `, im.titulo);
+        }
+
+        function resultados_da_busca_destaqueImovel(idx) {
+          const el = document.getElementById('grid-imoveis').children[idx];
+          if (!el) return;
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el.classList.add('ring-2', 'ring-marca-400', 'ring-offset-2');
+          setTimeout(() => el.classList.remove('ring-2', 'ring-marca-400', 'ring-offset-2'), 2000);
+        }
+
+        // Inicializar
+        resultados_da_busca_renderizarCards(resultados_da_busca_imoveis);
+      </script>
+    </section>
+
     <!-- TELAS -->
     </main>
   </div>
